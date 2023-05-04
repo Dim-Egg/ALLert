@@ -17,7 +17,7 @@ public class HelloApplication extends Application {
 
 
         Image image = new Image("https://raw.githubusercontent.com/Dim-Egg/ALLert/e709813c7db573e9e26d13f88693ee46b5c51121/ALLert.png");
-        stage.getIcons().add(image);
+        //stage.getIcons().add(image);
         stage.setScene(scene);
         stage.show();
     }
