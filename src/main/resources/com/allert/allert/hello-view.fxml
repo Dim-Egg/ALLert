@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="87.0" fitWidth="192.0" layoutX="2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="https://raw.githubusercontent.com/Dim-Egg/ALLert/e709813c7db573e9e26d13f88693ee46b5c51121/ALLert.png" />
          </image>
       </ImageView>
-      <TitledPane animated="false" layoutX="480.0" layoutY="-5.0" prefHeight="804.0" prefWidth="718.0" text="Titlos Kalesmatos">
+      <TitledPane animated="false" collapsible="false" layoutX="480.0" layoutY="112.0" prefHeight="687.0" prefWidth="718.0" text="Titlos Kalesmatos">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="633.0" prefWidth="732.0">
                <children>
-                  <TextArea layoutX="-3.0" prefHeight="341.0" prefWidth="605.0" text="Perigrafi kalesmatos..">
+                  <TextArea editable="false" layoutX="-3.0" prefHeight="236.0" prefWidth="500.0" promptText="Periggrafi Kalesmatos">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -30,5 +28,36 @@
             <Font size="28.0" />
          </font>
       </TitledPane>
+      <ScrollPane layoutX="2.0" layoutY="169.0" prefHeight="634.0" prefWidth="470.0">
+         <content>
+            <AnchorPane prefHeight="184.0" prefWidth="446.0" style="-fx-border-color: Black;">
+               <children>
+                  <TextArea editable="false" layoutX="6.0" layoutY="44.0" prefHeight="83.0" prefWidth="282.0" promptText="Periggrafi Kalesmatos">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextArea>
+                  <TextField editable="false" layoutX="6.0" layoutY="9.0" prefHeight="35.0" prefWidth="282.0" promptText="Titlos" />
+                  <Button layoutX="364.0" layoutY="151.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="98.0" text="Perissotera" />
+                  <TextField editable="false" layoutX="6.0" layoutY="147.0" prefHeight="35.0" prefWidth="282.0" promptText="Krisi-Imerominia" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <MenuBar layoutX="109.0" layoutY="127.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Kalesmata">
+
+          </Menu>
+          <Menu mnemonicParsing="false" text="Organoseis">
+
+          </Menu>
+          <Menu mnemonicParsing="false" text="Kriseis">
+
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TextField layoutX="446.0" layoutY="40.0" prefHeight="35.0" prefWidth="282.0" promptText="Anazitisi" />
+      <Button layoutX="728.0" layoutY="40.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="39.0" />
    </children>
 </AnchorPane>
