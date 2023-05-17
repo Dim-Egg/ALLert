@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root xmlns:fx="http://javafx.com/fxml" type = "javafx.scene.layout.Pane">
+    <children>
+        <Button layoutX="376.0" layoutY="124.0" mnemonicParsing="false" id = "contentButton"/>
+        <TextArea editable="false" layoutX="14.0" layoutY="37.0" prefHeight="75.0" prefWidth="282.0" id = "contentDescription"/>
+        <TextField editable="false" layoutX="14.0" layoutY="14.0" id = "contentTitle"/>
+        <TextField editable="false" layoutX="14.0" layoutY="112.0" id = "contentDetails"/>
+    </children>
+
+</fx:root>
