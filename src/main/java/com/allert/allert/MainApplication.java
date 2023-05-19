@@ -20,6 +20,7 @@ public class MainApplication extends Application {
         //stage.getIcons().add(image);
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void main(String[] args) {

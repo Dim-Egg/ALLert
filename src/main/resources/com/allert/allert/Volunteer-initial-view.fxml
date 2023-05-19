@@ -21,13 +21,13 @@
                   preserveRatio="true">
            <Image url="https://raw.githubusercontent.com/Dim-Egg/ALLert/e709813c7db573e9e26d13f88693ee46b5c51121/ALLert.png"/>
        </ImageView>
-      <TitledPane animated="false" collapsible="false" layoutX="480.0" layoutY="112.0" prefHeight="687.0" prefWidth="718.0" text="Titlos Kalesmatos">
+      <TitledPane animated="false" collapsible="false" layoutX="480.0" layoutY="112.0" prefHeight="687.0" prefWidth="718.0" fx:id = "rightTitle">
          <font>
             <Font size="28.0" />
          </font>
       </TitledPane>
        <ScrollPane hbarPolicy="NEVER" layoutX="5.0" layoutY="154.0" prefHeight="634.0" prefWidth="470.0">
-           <VBox prefWidth="467.0" id="leftTab">
+           <VBox prefWidth="467.0" fx:id="leftTab">
 
            </VBox>
        </ScrollPane>

@@ -1,4 +1,4 @@
-module com.allert.allert {
+module graphs {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -13,4 +13,8 @@ module com.allert.allert {
 
     opens com.allert.allert to javafx.fxml;
     exports com.allert.allert;
+
+    opens com.allert.allert.graphs to javafx.fxml;
+
 }
+
