@@ -32,7 +32,9 @@ public class Call {
     public int getId() {
         return id;
     }
-
+    public static Call findById(int id){
+        return callsList.stream().filter(call -> call.id == id).toList().get(0);
+    }
 
 
     private static int itId = 0;

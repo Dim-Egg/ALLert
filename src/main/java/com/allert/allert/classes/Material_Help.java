@@ -8,6 +8,10 @@ public class Material_Help extends Help{
         this.instructions = instructions;
     }
 
+    public Material_Help() {
+        super();
+    }
+
     public String getInstructions() {
         return instructions;
     }

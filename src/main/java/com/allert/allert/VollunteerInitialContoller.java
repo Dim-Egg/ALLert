@@ -19,16 +19,18 @@ public class VollunteerInitialContoller {
 
     @FXML
     protected void initialize() {
-
+        addAllCalls();
 
 
     }
 
     public void setRightTab(String type,String id){
-        rightTitle.setText("Kalesma gia paroxi nerou");
+        if(type.equals("Call") )
+            rightTitle.setText(Call.findById(Integer.parseInt(id)).getTitle());
     }
     public void addAllCalls(){
         Call.callsList.forEach((call) -> {
+
             contentPane newItem = new contentPane(call.getDescription(),
                     call.getCrisis().getName()+" "+call.getDate(),call.getTitle(),"Call",Integer.toString(call.getId()));
             newItem.contentButton.setOnAction(new EventHandler<ActionEvent>() {

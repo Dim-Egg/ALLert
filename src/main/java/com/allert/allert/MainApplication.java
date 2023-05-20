@@ -65,5 +65,19 @@ public class MainApplication extends Application {
                         new Economic_Item("Oikonomiki enishisi estiasis","dorees.org/stavros/evia/estiasi")}
                         ),
                 "13/07/2023");
+
+        new Call("Voithia stin fotia Evias apo Piroscestiki",
+                "Os Pirosvestiki parexoume voithia apo tin arxi stin fotia stin evia, xreiazomaste ethelontes kai dorees gia na sinexisoyms",
+                Entity.findByName("Pirosvestiki dinami peiraia"), Crisis.findByName("Fotia Evias"),
+                new Material_Help(),
+                new Volunteer_Help("Anagki gia odiogus kai pirosvestes", new Volunteer_Item[]{
+                        new Volunteer_Item("odigos",20,0),
+                        new Volunteer_Item("pirosvestis",50,0)}
+                        ,"stin arxi tou dasous stin kokkini tenta"),
+                new Economic_Help("Anagki gia oikonomiki enishisi ton ethelonton", new Economic_Item[]{
+                        new Economic_Item("Oikonomiki enishisi episitismou ethelonton","dorees.org/pirosvestes/evia/episitismos"),
+                        new Economic_Item("Oikonomiki enishisi kausimon","dorees.org/pirosvestes/evia/kausima")}
+                ),
+                "10/07/2023");
     }
 }
