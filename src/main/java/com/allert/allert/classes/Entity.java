@@ -1,15 +1,23 @@
 package com.allert.allert.classes;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Entity extends User{
     private String place;
-
+    public static List<Entity> entityList = new ArrayList<>();
     public Entity(String name, String password, String email, String telephone, String place, String description, String logo) {
         super(name, password, email, telephone);
         this.place = place;
         this.description = description;
         this.logo = logo;
+        entityList.add(this);
     }
 
+    public static Entity findByName(String name){
+        return entityList.stream().filter(entity -> name.equals(entity.name)).toList().get(0);
+    }
     private String description;
     private String logo;
     private User representative;

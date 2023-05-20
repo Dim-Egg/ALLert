@@ -1,5 +1,6 @@
 package com.allert.allert;
 
+import com.allert.allert.classes.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,6 +25,45 @@ public class MainApplication extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        dummyData();launch();
+    }
+    public static void dummyData(){
+
+        new Crisis("Fotia Evias",
+                "Evia",
+                "Megali fotia stin perioxi tis evias 10000 dasikon stremmaton",
+                Crisis.Level.MEDIUM);
+
+        new Entity("Stavros",
+                "emrwinr213491",
+                "helpdesk@stavros.org",
+                "21033445566",
+                "Athens",
+                "Medical help in places of need",
+                "IMAGE");
+        new Entity("Pirosvestiki dinami peiraia",
+                "emrwinr213491",
+                "helpdesk@pirpirea.org",
+                "21063524156",
+                "Athens",
+                "Emergency help in wildfires and extreme situations",
+                "IMAGE");
+
+        new Call("Voithia stin fotia Evias apo Stavro",
+                "Os stavros parexoume voithia tiw teleutaiew dio evdomades stin megali fotia stin evia, xreiazomaste farmaka kai iatriko prosopiko gia na enisxithoun oi prospatheies mas",
+                Entity.findByName("Stavros"), Crisis.findByName("Fotia Evias"),
+                new Material_Help("Anagki gia farmaka", new Material_Item[]{
+                        new Material_Item("Depon",100,0),
+                        new Material_Item("Iodio",150,0)},
+                        "farasalon 15, Karistos"),
+                new Volunteer_Help("Anagki gia nosileutes kai psihologous", new Volunteer_Item[]{
+                        new Volunteer_Item("Nosileutes",15,0),
+                        new Volunteer_Item("Psihologoi",5,0)}
+                        ,"farasalon 15, Karistos stin Aspri polikatikia"),
+                new Economic_Help("Anagki gia oikonomiki enishisi ton pligenton", new Economic_Item[]{
+                        new Economic_Item("Oikonomiki enishisi episitismou","dorees.org/stavros/evia/episitismos"),
+                        new Economic_Item("Oikonomiki enishisi estiasis","dorees.org/stavros/evia/estiasi")}
+                        ),
+                "13/07/2023");
     }
 }

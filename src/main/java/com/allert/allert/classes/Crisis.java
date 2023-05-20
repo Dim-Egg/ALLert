@@ -1,9 +1,18 @@
 package com.allert.allert.classes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Crisis {
+    private String name;
     private String place;
     private String description;
     private Level importance;
+    public static List<Crisis> crisisList = new ArrayList<>();
+
+    public static Crisis findByName(String name){
+        return (Crisis) crisisList.stream().filter(crisis -> name.equals(crisis.name)).toList().get(0);
+    }
 
     public String getPlace() {
         return place;
@@ -29,15 +38,25 @@ public class Crisis {
         this.importance = importance;
     }
 
-    public Crisis(String place, String description, Level importance) {
+    public Crisis(String name, String place, String description, Level importance) {
+        this.name = name;
         this.place = place;
         this.description = description;
         this.importance = importance;
+        crisisList.add(this);
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public static enum Level {
+        LOW,
+        MEDIUM,
+        HIGH
     }
 }
 
-enum Level {
-    LOW,
-    MEDIUM,
-    HIGH
-}
+
