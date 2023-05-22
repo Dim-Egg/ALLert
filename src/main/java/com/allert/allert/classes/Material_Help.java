@@ -12,6 +12,11 @@ public class Material_Help extends Help{
         super();
     }
 
+    @Override
+    public Material_Item[] getItem_list() {
+        return (Material_Item[]) super.getItem_list();
+    }
+
     public String getInstructions() {
         return instructions;
     }
