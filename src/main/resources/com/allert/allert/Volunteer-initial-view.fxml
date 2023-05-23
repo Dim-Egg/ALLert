@@ -47,7 +47,7 @@
 
            </Menu>
        </MenuBar>
-      <TextField layoutX="446.0" layoutY="40.0" prefHeight="35.0" prefWidth="282.0" promptText="Anazitisi" />
-      <Button layoutX="728.0" layoutY="40.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="39.0" />
+      <TextField fx:id="searchField" layoutX="446.0" layoutY="40.0" prefHeight="35.0" prefWidth="282.0" promptText="Anazitisi" />
+      <Button fx:id="searchButton" layoutX="728.0" layoutY="40.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="39.0" />
    </children>
 </AnchorPane>

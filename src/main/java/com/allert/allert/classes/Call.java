@@ -36,7 +36,14 @@ public class Call {
         return callsList.stream().filter(call -> call.id == id).toList().get(0);
     }
 
-
+    public static ArrayList<Integer> search(String word){
+        ArrayList<Integer> idList = new ArrayList<Integer>();
+        for(Call call: callsList){
+            if(call.title.contains(word)||call.description.contains(word)||call.entity.getName().contains(word)||call.crisis.getName().contains(word))
+                idList.add(call.id);
+        }
+        return idList;
+    }
     private static int itId = 0;
 
     public static List<Call> callsList = new ArrayList<>();

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<fx:root style="-fx-border-color: black;" type="javafx.scene.layout.Pane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" >
+<fx:root style="-fx-border-color: black;" type="javafx.scene.layout.Pane" fx:id="content" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" >
     <children>
         <Button fx:id="contentButton" layoutX="376.0" layoutY="124.0" mnemonicParsing="false" />
         <TextArea fx:id="contentDescription" editable="false" layoutX="14.0" layoutY="37.0" prefHeight="75.0" prefWidth="282.0" />

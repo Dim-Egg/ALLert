@@ -23,13 +23,14 @@ public class contentPane extends Pane{
             this.contentDetails.setText(contentDetails);
             this.contentTitle.setText(contentTitle);
             this.contentButton.setText("Perissotera");
-            this.contentButton.setId(contentType+contentId);
+            this.content.setId(contentType+contentId);
 
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
     }
-
+    @FXML
+    public Pane content;
     @FXML
     public Button contentButton;
 
