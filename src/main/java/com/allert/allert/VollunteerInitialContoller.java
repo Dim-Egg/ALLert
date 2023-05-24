@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -27,6 +28,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VollunteerInitialContoller {
 
@@ -37,7 +39,9 @@ public class VollunteerInitialContoller {
     public TitledPane rightTitle;
     public Button searchButton;
     public TextField searchField;
-
+    public Button callMenu;
+    public Button orgMenu;
+    public Button criMenu;
 
 
     @FXML
@@ -48,23 +52,38 @@ public class VollunteerInitialContoller {
                 search(searchField.getText());
             }
         });
+        callMenu.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                addAllCalls();
+            }
+        });
+        criMenu.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                addAllCrisis();
+            }
+        });
+        orgMenu.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                addAllOrgs();
+            }
+        });
+
         addAllCalls();
 
 
     }
 
     public void search(String word){
-        leftTab.getChildren().clear();
+//        leftTab.getChildren().removeAll(
+//        leftTab.getChildren().stream().filter(node -> node instanceof Pane&&node.getId().contains("Call")).toList());
         addAllCalls();
         searchField.setText("");
         ArrayList<String> searchedCalls = append("Call",Call.search(word));
-        ArrayList<Node> removedNodes = new ArrayList<Node>();
-        for(Node node : leftTab.getChildren())
-            if(node instanceof Pane)
-                if (!searchedCalls.contains(node.getId()))
-                    removedNodes.add(node);
-        leftTab.getChildren().removeAll(removedNodes);
-
+        leftTab.getChildren().removeAll(
+        leftTab.getChildren().stream().filter(node -> node instanceof Pane&&!(searchedCalls.contains(node.getId()))).toList());
 
     }
 
@@ -83,8 +102,18 @@ public class VollunteerInitialContoller {
             rightTitle.setContent(new callPane(displayCall));
 
         }
+        if(type.equals("Entity") ) {
+            Entity displayEntity = Entity.findByName(id);
+            rightTitle.setText(displayEntity.getName());
+            rightTitle.setContent(new callPane(displayEntity));
+
+        }
     }
     public void addAllCalls(){
+        callMenu.setDefaultButton(true);
+        criMenu.setDefaultButton(false);
+        orgMenu.setDefaultButton(false);
+        leftTab.getChildren().clear();
         Call.callsList.forEach((call) -> {
 
             contentPane newItem = new contentPane(call.getDescription(),
@@ -100,5 +129,32 @@ public class VollunteerInitialContoller {
 
     }
 
+    public void addAllOrgs(){
+        callMenu.setDefaultButton(false);
+        criMenu.setDefaultButton(false);
+        orgMenu.setDefaultButton(true);
+        leftTab.getChildren().clear();
+
+        Entity.entityList.forEach((entity) -> {
+
+            contentPane newItem = new contentPane(entity.getDescription(),
+                    entity.getPlace(), entity.getName(),"","");
+            newItem.contentButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    setRightTab("Entity", entity.getName());
+                }
+            });
+            leftTab.getChildren().add(newItem);
+        });
+
+    }
+
+    public void addAllCrisis(){
+        callMenu.setDefaultButton(false);
+        criMenu.setDefaultButton(true);
+        orgMenu.setDefaultButton(false);
+        leftTab.getChildren().clear();
+    }
 }
 

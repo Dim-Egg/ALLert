@@ -12,12 +12,12 @@
 <fx:root style="-fx-border-color: black;" type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" >
     <children>
         <TextArea fx:id="innerCallDescription" layoutX="7.0" layoutY="8.0" prefHeight="187.0" prefWidth="419.0" />
-        <TextField editable="false" layoutX="25.0" layoutY="210.0" prefHeight="33.0" prefWidth="144.0" style="-fx-background-color: transparent;" text="Yliki Voitheia">
+        <TextField editable="false" layoutX="25.0" layoutY="210.0" prefHeight="33.0" prefWidth="144.0" style="-fx-background-color: transparent;" text="Yliki Voitheia" id="callContent">
             <font>
                 <Font size="18.0" />
             </font>
         </TextField>
-        <ScrollPane hbarPolicy="NEVER" layoutX="42.0" layoutY="248.0" prefHeight="206.0" prefWidth="294.0" vmax="0.5">
+        <ScrollPane hbarPolicy="NEVER" layoutX="42.0" layoutY="248.0" prefHeight="206.0" prefWidth="294.0" vmax="0.5" id="callContent">
 
 
             <VBox fx:id="matHelp" prefWidth="262.0">
@@ -26,31 +26,31 @@
 
 
         </ScrollPane>
-        <ScrollPane hbarPolicy="NEVER" layoutX="360.0" layoutY="243.0" prefHeight="206.0" prefWidth="299.0">
+        <ScrollPane hbarPolicy="NEVER" layoutX="360.0" layoutY="243.0" prefHeight="206.0" prefWidth="299.0" id="callContent">
 
 
             <VBox fx:id="volHelp" prefWidth="262.0" />
 
 
         </ScrollPane>
-        <TextField editable="false" layoutX="338.0" layoutY="210.0" prefHeight="33.0" prefWidth="144.0" style="-fx-background-color: transparent;" text="Ethelontes">
+        <TextField editable="false" layoutX="338.0" layoutY="210.0" prefHeight="33.0" prefWidth="144.0" style="-fx-background-color: transparent;" text="Ethelontes" id="callContent">
             <font>
                 <Font size="18.0" />
             </font>
         </TextField>
-        <TextField editable="false" layoutX="7.0" layoutY="462.0" prefHeight="33.0" prefWidth="202.0" style="-fx-background-color: transparent;" text="Oikonomiki Voitheia">
+        <TextField editable="false" layoutX="7.0" layoutY="462.0" prefHeight="33.0" prefWidth="202.0" style="-fx-background-color: transparent;" text="Oikonomiki Voitheia" id="callContent">
             <font>
                 <Font size="18.0" />
             </font>
         </TextField>
-        <ScrollPane hbarPolicy="NEVER" layoutX="23.0" layoutY="495.0" prefHeight="87.0" prefWidth="315.0" vmax="0.5">
+        <ScrollPane hbarPolicy="NEVER" layoutX="23.0" layoutY="495.0" prefHeight="87.0" prefWidth="315.0" vmax="0.5" id="callContent">
             <content>
                 <VBox fx:id="ecHelp" prefHeight="82.0" prefWidth="280.0" />
             </content>
         </ScrollPane>
-        <Hyperlink fx:id="forLink" layoutX="466.0" layoutY="27.0" />
-        <Hyperlink fx:id="criLink" layoutX="454.0" layoutY="65.0" />
-        <TextField fx:id="innerCallDate" editable="false" layoutX="444.0" layoutY="102.0" style="-fx-background-color: transparent;" />
+        <Hyperlink fx:id="forLink" layoutX="466.0" layoutY="27.0" id="callContent"/>
+        <Hyperlink fx:id="criLink" layoutX="454.0" layoutY="65.0" id="callContent"/>
+        <TextField fx:id="innerCallDate" editable="false" layoutX="444.0" layoutY="102.0" style="-fx-background-color: transparent;"/>
     </children>
 
 </fx:root>

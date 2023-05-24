@@ -7,6 +7,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.awt.*;
@@ -70,4 +71,26 @@ public class callPane extends AnchorPane {
     @FXML
     public Hyperlink forLink;
 
+    public callPane(Entity displayEntity) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/allert/allert/callPane.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+
+        try {
+            loader.load();
+            innerCallDescription.setText(displayEntity.getDescription());
+            innerCallDate.setText(displayEntity.getTelephone() + " " + displayEntity.getEmail());
+            criLink.setVisible(false);
+            forLink.setVisible(false);
+            matHelp.setVisible(false);
+            ecHelp.setVisible(false);
+            volHelp.setVisible(false);
+            this.getChildren().removeAll(
+                    this.getChildren().stream().filter(node -> ("callContent".equals(node.getId()))).toList());
+
+
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
 }
