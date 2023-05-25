@@ -38,5 +38,6 @@
       <Button fx:id="callMenu" defaultButton="true" layoutX="124.0" layoutY="130.0" mnemonicParsing="false" text="Kalesmata" />
       <Button fx:id="orgMenu" layoutX="211.0" layoutY="130.0" mnemonicParsing="false" text="Foreis" />
       <Button fx:id="criMenu" layoutX="269.0" layoutY="130.0" mnemonicParsing="false" text="Kriseis" />
+      <Button fx:id = "aitimaButton" layoutX="1084.0" layoutY="768.0" mnemonicParsing="false" text="Aitima Anagis" />
    </children>
 </AnchorPane>

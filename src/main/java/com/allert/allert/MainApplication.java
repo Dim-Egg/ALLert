@@ -10,17 +10,19 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainApplication extends Application {
+    public static Stage mainWindow;
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("Volunteer-initial-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
-        stage.setTitle("Volunteer");
+        mainWindow = stage;
+        mainWindow.setTitle("Volunteer");
 
 
         Image image = new Image("https://raw.githubusercontent.com/Dim-Egg/ALLert/e709813c7db573e9e26d13f88693ee46b5c51121/ALLert.png");
         //stage.getIcons().add(image);
-        stage.setScene(scene);
-        stage.show();
+        mainWindow.setScene(scene);
+        mainWindow.show();
 
     }
 

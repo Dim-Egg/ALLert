@@ -7,8 +7,10 @@ import com.allert.allert.graphs.eidosPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -17,9 +19,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
@@ -34,7 +38,7 @@ public class VollunteerInitialContoller {
 
     public VBox leftTab;
 
-
+    public static User currentUser;
 
     public TitledPane rightTitle;
     public Button searchButton;
@@ -42,8 +46,9 @@ public class VollunteerInitialContoller {
     public Button callMenu;
     public Button orgMenu;
     public Button criMenu;
+    public Button aitimaButton;
 
-
+    public static Stage secondaryWindow;
     @FXML
     protected void initialize() {
         searchButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -68,6 +73,25 @@ public class VollunteerInitialContoller {
             @Override
             public void handle(ActionEvent actionEvent) {
                 addAllOrgs();
+            }
+        });
+
+        aitimaButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("aitima-view.fxml"));
+                Scene scene;
+                try {
+                    scene = new Scene(fxmlLoader.load());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                secondaryWindow = new Stage();
+                secondaryWindow.setTitle("Aitima Anagkis");
+
+                secondaryWindow.setScene(scene);
+                secondaryWindow.show();
+                MainApplication.mainWindow.hide();
             }
         });
 
