@@ -132,6 +132,11 @@ public class VollunteerInitialContoller {
             rightTitle.setContent(new callPane(displayEntity));
 
         }
+        if(type.equals("Crisis")){
+            Crisis displayCrisis = Crisis.findByName(id);
+            rightTitle.setText(displayCrisis.getName());
+            rightTitle.setContent(new callPane(displayCrisis));
+        }
     }
     public void addAllCalls(){
         callMenu.setDefaultButton(true);
@@ -179,6 +184,19 @@ public class VollunteerInitialContoller {
         criMenu.setDefaultButton(true);
         orgMenu.setDefaultButton(false);
         leftTab.getChildren().clear();
+
+        Crisis.crisisList.forEach((crisis) -> {
+
+            contentPane newItem = new contentPane(crisis.getDescription(),
+                    crisis.getPlace(), crisis.getName(),"","");
+            newItem.contentButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    setRightTab("Crisis", crisis.getName());
+                }
+            });
+            leftTab.getChildren().add(newItem);
+        });
     }
 }
 

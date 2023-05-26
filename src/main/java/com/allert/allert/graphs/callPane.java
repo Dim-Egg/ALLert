@@ -80,17 +80,36 @@ public class callPane extends AnchorPane {
             loader.load();
             innerCallDescription.setText(displayEntity.getDescription());
             innerCallDate.setText(displayEntity.getTelephone() + " " + displayEntity.getEmail());
-            criLink.setVisible(false);
-            forLink.setVisible(false);
-            matHelp.setVisible(false);
-            ecHelp.setVisible(false);
-            volHelp.setVisible(false);
-            this.getChildren().removeAll(
-                    this.getChildren().stream().filter(node -> ("callContent".equals(node.getId()))).toList());
+            callOff();
 
 
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+    }
+    public callPane(Crisis displayCrisis) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/allert/allert/callPane.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+
+        try {
+            loader.load();
+            innerCallDescription.setText(displayCrisis.getDescription());
+
+            callOff();
+
+
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+    public void callOff(){
+        criLink.setVisible(false);
+        forLink.setVisible(false);
+        matHelp.setVisible(false);
+        ecHelp.setVisible(false);
+        volHelp.setVisible(false);
+        this.getChildren().removeAll(
+                this.getChildren().stream().filter(node -> ("callContent".equals(node.getId()))).toList());
     }
 }
