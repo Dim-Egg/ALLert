@@ -1,16 +1,36 @@
 package com.allert.allert.classes;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class User {
     protected String name;
     protected String password;
     protected String email;
     protected String telephone;
+    protected int id;
+    protected static int curid = 0;
+    public static List<User> usersList = new ArrayList<>();
+    public int getId() {
+        return id;
+    }
+
+    public static User getUserById(int id){
+        return usersList.stream().filter(user -> (user.id==id)).toList().get(0);
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public User(String name, String password, String email, String telephone) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.telephone = telephone;
+        this.id = curid++;
+        usersList.add(this);
     }
 
     public User(String name, String email, String telephone) {

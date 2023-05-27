@@ -13,10 +13,10 @@ public class MainApplication extends Application {
     public static Stage mainWindow;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("Volunteer-initial-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("dummyLogIn.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         mainWindow = stage;
-        mainWindow.setTitle("Volunteer");
+        mainWindow.setTitle("Login");
 
 
         Image image = new Image("https://raw.githubusercontent.com/Dim-Egg/ALLert/e709813c7db573e9e26d13f88693ee46b5c51121/ALLert.png");
@@ -25,11 +25,31 @@ public class MainApplication extends Application {
         mainWindow.show();
 
     }
-
+    public static void logIn(int id) throws IOException {
+        User user = User.getUserById(id);
+        if(user instanceof Volunteer){
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("Volunteer-initial-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+            mainWindow.setTitle(user.getName());
+            VollunteerInitialContoller.currentUser = user;
+            mainWindow.setScene(scene);
+        }
+    }
     public static void main(String[] args) {
         dummyData();launch();
     }
     public static void dummyData(){
+
+        new Volunteer("Fotis papas",
+                "emrwinr213491",
+                "papafotis@gmail.com",
+                "6900800899",
+                "Patra",new Skill[]{Skill.DRIVING},true);
+        new Volunteer("Marika Karalida",
+                "emrwinr213491",
+                "karalida@outlook.com",
+                "6900345345",
+                "Thiva",new Skill[]{Skill.COOKING},false);
 
         new Crisis("Fotia Evias",
                 "Evia",

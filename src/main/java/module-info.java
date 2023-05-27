@@ -15,6 +15,9 @@ module graphs {
     exports com.allert.allert;
 
     opens com.allert.allert.graphs to javafx.fxml;
+    exports com.allert.allert.graphs;
 
+    opens com.allert.allert.classes to javafx.fxml;
+    exports com.allert.allert.classes;
 }
 

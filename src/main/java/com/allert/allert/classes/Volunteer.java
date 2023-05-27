@@ -5,6 +5,7 @@ public class Volunteer extends User{
     private Skill[] skills;
     private boolean availability;
 
+
     public Volunteer(String name, String password, String email, String telephone,String place, Skill[] skills, boolean availability) {
         super(name,password,email,telephone);
         this.place = place;
@@ -37,6 +38,3 @@ public class Volunteer extends User{
     }
 }
 
-enum Skill{
-
-}

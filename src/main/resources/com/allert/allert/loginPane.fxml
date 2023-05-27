@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<fx:root prefHeight="69.0" prefWidth="226.0" style="-fx-border-color: gray;" type="javafx.scene.layout.Pane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" >
+    <Label fx:id="name" layoutX="14.0" layoutY="14.0" text="Onoma" />
+    <Label fx:id="displayProperty" layoutX="14.0" layoutY="47.0" text="Responses:" />
+    <Label fx:id="displayAmount" layoutX="95.0" layoutY="47.0" text="2" />
+    <Button fx:id="logInButton" layoutX="168.0" layoutY="43.0" mnemonicParsing="false" text="Log In" />
+</fx:root>
