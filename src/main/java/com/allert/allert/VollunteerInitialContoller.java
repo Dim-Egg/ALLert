@@ -20,6 +20,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -49,12 +51,35 @@ public class VollunteerInitialContoller {
     public Button aitimaButton;
 
     public static Stage secondaryWindow;
+    public String filterWord = "";
     @FXML
     protected void initialize() {
+        searchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent actionEvent) {
+                if(actionEvent.getCode().equals(KeyCode.ENTER)){
+                    filterWord = searchField.getText();
+                    if(callMenu.isDefaultButton())
+                        addAllCalls();
+                    if(criMenu.isDefaultButton())
+                        addAllCrisis();
+                    if(orgMenu.isDefaultButton())
+                        addAllOrgs();
+                    searchField.setText("");
+                }
+            }
+        });
         searchButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                search(searchField.getText());
+                filterWord = searchField.getText();
+                if(callMenu.isDefaultButton())
+                    addAllCalls();
+                if(criMenu.isDefaultButton())
+                    addAllCrisis();
+                if(orgMenu.isDefaultButton())
+                    addAllOrgs();
+                searchField.setText("");
             }
         });
         callMenu.setOnAction(new EventHandler<ActionEvent>() {
@@ -100,22 +125,20 @@ public class VollunteerInitialContoller {
 
     }
 
-    public void search(String word){
-//        leftTab.getChildren().removeAll(
-//        leftTab.getChildren().stream().filter(node -> node instanceof Pane&&node.getId().contains("Call")).toList());
-        addAllCalls();
-        searchField.setText("");
-        ArrayList<String> searchedCalls = append("Call",Call.search(word));
-        leftTab.getChildren().removeAll(
-        leftTab.getChildren().stream().filter(node -> node instanceof Pane&&!(searchedCalls.contains(node.getId()))).toList());
 
-    }
 
     public ArrayList<String> append(String word, ArrayList<Integer> list){
         ArrayList<String> finalList = new ArrayList<String>();
         for (int i : list)
             finalList.add(word+Integer.toString(i));
 
+        return finalList;
+    }
+
+    public ArrayList<String> appendString(String word, ArrayList<String> list){
+        ArrayList<String> finalList = new ArrayList<String>();
+        for (String i : list)
+            finalList.add(word+i);
         return finalList;
     }
 
@@ -139,9 +162,11 @@ public class VollunteerInitialContoller {
         }
     }
     public void addAllCalls(){
+
         callMenu.setDefaultButton(true);
         criMenu.setDefaultButton(false);
         orgMenu.setDefaultButton(false);
+
         leftTab.getChildren().clear();
         Call.callsList.forEach((call) -> {
 
@@ -156,6 +181,11 @@ public class VollunteerInitialContoller {
             leftTab.getChildren().add(newItem);
         });
 
+        if(!filterWord.equals("")){
+        ArrayList<String> searchedCalls = append("Call",Call.search(filterWord));
+        leftTab.getChildren().removeAll(
+                leftTab.getChildren().stream().filter(node -> node instanceof Pane&&!(searchedCalls.contains(node.getId()))).toList());}
+
     }
 
     public void addAllOrgs(){
@@ -167,7 +197,7 @@ public class VollunteerInitialContoller {
         Entity.entityList.forEach((entity) -> {
 
             contentPane newItem = new contentPane(entity.getDescription(),
-                    entity.getPlace(), entity.getName(),"","");
+                    entity.getPlace(), entity.getName(),"Entity",entity.getName());
             newItem.contentButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
@@ -176,6 +206,11 @@ public class VollunteerInitialContoller {
             });
             leftTab.getChildren().add(newItem);
         });
+
+        if(!filterWord.equals("")){
+            ArrayList<String> searched = appendString("Entity",Entity.search(filterWord));
+            leftTab.getChildren().removeAll(
+                    leftTab.getChildren().stream().filter(node -> node instanceof Pane&&!(searched.contains(node.getId()))).toList());}
 
     }
 
@@ -188,7 +223,7 @@ public class VollunteerInitialContoller {
         Crisis.crisisList.forEach((crisis) -> {
 
             contentPane newItem = new contentPane(crisis.getDescription(),
-                    crisis.getPlace(), crisis.getName(),"","");
+                    crisis.getPlace(), crisis.getName(),"Crisis",crisis.getName());
             newItem.contentButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
@@ -197,6 +232,11 @@ public class VollunteerInitialContoller {
             });
             leftTab.getChildren().add(newItem);
         });
+
+        if(!filterWord.equals("")){
+            ArrayList<String> searched = appendString("Crisis",Crisis.search(filterWord));
+            leftTab.getChildren().removeAll(
+                    leftTab.getChildren().stream().filter(node -> node instanceof Pane&&!(searched.contains(node.getId()))).toList());}
     }
 }
 

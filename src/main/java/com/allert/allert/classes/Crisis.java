@@ -14,6 +14,15 @@ public class Crisis {
         return (Crisis) crisisList.stream().filter(crisis -> name.equals(crisis.name)).toList().get(0);
     }
 
+    public static ArrayList<String> search(String word){
+        ArrayList<String> idList = new ArrayList<String>();
+        for(Crisis crisis: crisisList){
+            if(crisis.name.contains(word)||crisis.description.contains(word)||crisis.place.contains(word)||crisis.importance.toString().contains(word))
+                    idList.add(crisis.name);
+        }
+        return idList;
+    }
+
     public String getPlace() {
         return place;
     }

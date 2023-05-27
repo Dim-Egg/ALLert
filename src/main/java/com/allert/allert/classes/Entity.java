@@ -18,6 +18,15 @@ public class Entity extends User{
     public static Entity findByName(String name){
         return entityList.stream().filter(entity -> name.equals(entity.name)).toList().get(0);
     }
+
+    public static ArrayList<String> search(String word){
+        ArrayList<String> idList = new ArrayList<String>();
+        for(Entity enitty: entityList){
+            if(enitty.name.contains(word)||enitty.description.contains(word)||enitty.email.contains(word)||enitty.telephone.contains(word)||enitty.place.contains(word))//||enitty.representative.getName().contains(word))
+                idList.add(enitty.name);
+        }
+        return idList;
+    }
     private String description;
     private String logo;
     private User representative;
