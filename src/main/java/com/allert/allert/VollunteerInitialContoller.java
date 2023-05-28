@@ -1,6 +1,7 @@
 package com.allert.allert;
 
 import com.allert.allert.classes.*;
+import com.allert.allert.graphs.HelpPane;
 import com.allert.allert.graphs.callPane;
 import com.allert.allert.graphs.contentPane;
 import com.allert.allert.graphs.eidosPane;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -27,6 +29,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.sound.sampled.AudioInputStream;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
@@ -164,7 +167,22 @@ public class VollunteerInitialContoller {
                 setRightTab("Entity", callPane.forLink.getText());
 
             });
+            callPane.helpButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    HelpPane helpPane = new HelpPane((Volunteer) currentUser,Call.findById(callPane.callId));
+                    Scene scene;
+                    Group root = new Group(helpPane);
+                    scene = new Scene(root, 600, 400);
+                    secondaryWindow = new Stage();
+                    secondaryWindow.setTitle("Help "+displayCall.getTitle());
 
+                    secondaryWindow.setScene(scene);
+                    secondaryWindow.show();
+                    MainApplication.mainWindow.hide();
+
+                }
+            });
         }
         if(type.equals("Entity") ) {
             Entity displayEntity = Entity.findByName(id);

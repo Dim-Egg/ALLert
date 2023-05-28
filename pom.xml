@@ -46,7 +46,7 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>20</version>
-            <classifier>win</classifier>
+            <classifier>lin</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>

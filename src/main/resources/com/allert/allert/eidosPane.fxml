@@ -18,8 +18,8 @@
                 <Font size="15.0" />
             </font>
         </Label>
-        <TextField fx:id="accAmount" editable="false" layoutX="93.0" layoutY="8.0" prefHeight="24.0" prefWidth="52.0" />
-        <TextField fx:id="needAmount" editable="false" layoutX="155.0" layoutY="10.0" prefHeight="24.0" prefWidth="50.0" />
+        <TextField id ="accAmount" fx:id="accAmount" editable="false" layoutX="93.0" layoutY="8.0" prefHeight="24.0" prefWidth="52.0" />
+        <TextField id ="nedAmount" fx:id="needAmount" editable="false" layoutX="155.0" layoutY="10.0" prefHeight="24.0" prefWidth="50.0" />
     </children>
 
 </fx:root>
