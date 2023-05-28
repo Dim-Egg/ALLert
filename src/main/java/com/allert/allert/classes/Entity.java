@@ -24,6 +24,8 @@ public class Entity extends User{
         for(Entity enitty: entityList){
             if(enitty.name.contains(word)||enitty.description.contains(word)||enitty.email.contains(word)||enitty.telephone.contains(word)||enitty.place.contains(word))//||enitty.representative.getName().contains(word))
                 idList.add(enitty.name);
+            else if(!Call.callsList.stream().filter(call -> call.getEntity().equals(enitty)).toList().stream().filter(call -> Call.search(word).contains(call.getId())).toList().isEmpty())
+                idList.add(enitty.name);
         }
         return idList;
     }

@@ -1,5 +1,6 @@
 package com.allert.allert.graphs;
 
+import com.allert.allert.VollunteerInitialContoller;
 import com.allert.allert.classes.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +29,8 @@ public class callPane extends AnchorPane {
             innerCallDate.setText(displayCall.getDate());
             criLink.setText(displayCall.getCrisis().getName());
             forLink.setText(displayCall.getEntity().getName());
+
+
 
             for(Material_Item matItem:((Material_Help)displayCall.getHelp_List()[0]).getItem_list()){
                 eidosPane newItem = new eidosPane(Integer.toString(matItem.getNeeded_Quantity()),Integer.toString(matItem.getAccumulated_Quantity()),matItem.getName());
@@ -80,6 +83,8 @@ public class callPane extends AnchorPane {
             loader.load();
             innerCallDescription.setText(displayEntity.getDescription());
             innerCallDate.setText(displayEntity.getTelephone() + " " + displayEntity.getEmail());
+            criLink.setText("Calls");
+
             callOff();
 
 
@@ -95,6 +100,8 @@ public class callPane extends AnchorPane {
         try {
             loader.load();
             innerCallDescription.setText(displayCrisis.getDescription());
+            criLink.setText("Calls");
+            forLink.setText("Foreis pou Voithoun");
 
             callOff();
 
@@ -104,11 +111,7 @@ public class callPane extends AnchorPane {
         }
     }
     public void callOff(){
-        criLink.setVisible(false);
-        forLink.setVisible(false);
-        matHelp.setVisible(false);
-        ecHelp.setVisible(false);
-        volHelp.setVisible(false);
+
         this.getChildren().removeAll(
                 this.getChildren().stream().filter(node -> ("callContent".equals(node.getId()))).toList());
     }

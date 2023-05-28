@@ -146,19 +146,61 @@ public class VollunteerInitialContoller {
         if(type.equals("Call") ) {
             Call displayCall = Call.findById(Integer.parseInt(id));
             rightTitle.setText(displayCall.getTitle());
-            rightTitle.setContent(new callPane(displayCall));
+            callPane callPane = new callPane(displayCall);
+            rightTitle.setContent(callPane);
+
+            callPane.criLink.setOnAction(e->{
+                filterWord = callPane.criLink.getText();
+
+                    addAllCrisis();
+                setRightTab("Crisis", callPane.criLink.getText());
+
+            });
+
+            callPane.forLink.setOnAction(e->{
+                filterWord = callPane.forLink.getText();
+
+                addAllOrgs();
+                setRightTab("Entity", callPane.forLink.getText());
+
+            });
 
         }
         if(type.equals("Entity") ) {
             Entity displayEntity = Entity.findByName(id);
             rightTitle.setText(displayEntity.getName());
-            rightTitle.setContent(new callPane(displayEntity));
+            callPane callPane = new callPane(displayEntity);
+            rightTitle.setContent(callPane);
+
+            callPane.criLink.setOnAction(e->{
+                filterWord = rightTitle.getText();
+
+                addAllCalls();
+
+
+            });
 
         }
         if(type.equals("Crisis")){
             Crisis displayCrisis = Crisis.findByName(id);
             rightTitle.setText(displayCrisis.getName());
-            rightTitle.setContent(new callPane(displayCrisis));
+            callPane callPane = new callPane(displayCrisis);
+            rightTitle.setContent(callPane);
+
+            callPane.criLink.setOnAction(e->{
+                filterWord = rightTitle.getText();
+
+                addAllCalls();
+
+
+            });
+            callPane.forLink.setOnAction(e->{
+                filterWord = rightTitle.getText();
+
+                addAllOrgs();
+
+
+            });
         }
     }
     public void addAllCalls(){

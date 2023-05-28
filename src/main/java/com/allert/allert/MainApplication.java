@@ -17,6 +17,7 @@ public class MainApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         mainWindow = stage;
         mainWindow.setTitle("Login");
+        mainWindow.setResizable(false);
 
 
         Image image = new Image("https://raw.githubusercontent.com/Dim-Egg/ALLert/e709813c7db573e9e26d13f88693ee46b5c51121/ALLert.png");
@@ -33,6 +34,7 @@ public class MainApplication extends Application {
             mainWindow.setTitle(user.getName());
             VollunteerInitialContoller.currentUser = user;
             mainWindow.setScene(scene);
+            mainWindow.centerOnScreen();
         }
     }
     public static void main(String[] args) {
