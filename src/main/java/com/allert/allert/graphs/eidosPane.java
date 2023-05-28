@@ -3,6 +3,7 @@ package com.allert.allert.graphs;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -34,5 +35,5 @@ public class eidosPane extends Pane {
     public TextField needAmount;
 
     @FXML
-    public TextArea name;
+    public Label name;
 }

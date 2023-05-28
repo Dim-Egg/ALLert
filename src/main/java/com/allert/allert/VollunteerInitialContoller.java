@@ -65,7 +65,7 @@ public class VollunteerInitialContoller {
                         addAllCrisis();
                     if(orgMenu.isDefaultButton())
                         addAllOrgs();
-                    searchField.setText("");
+
                 }
             }
         });
@@ -79,7 +79,7 @@ public class VollunteerInitialContoller {
                     addAllCrisis();
                 if(orgMenu.isDefaultButton())
                     addAllOrgs();
-                searchField.setText("");
+                
             }
         });
         callMenu.setOnAction(new EventHandler<ActionEvent>() {
