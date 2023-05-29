@@ -62,9 +62,29 @@ public class VollunteerInitialContoller {
     public CheckBox responses;
 
     public VollunteerInitialContoller vollunteerInitialContoller;
+    public Button logOutButton;
+
     @FXML
     protected void initialize() {
         vollunteerInitialContoller = this;
+
+        logOutButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("dummyLogIn.fxml"));
+                Scene scene = null;
+                try {
+                    scene = new Scene(fxmlLoader.load(), 600, 400);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                Stage mainWindow = MainApplication.mainWindow;
+                mainWindow.setTitle("Login");
+                mainWindow.setResizable(false);
+                mainWindow.setScene(scene);
+                mainWindow.centerOnScreen();
+            }
+        });
         responses.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldvalue, Boolean newvalue) {
@@ -275,7 +295,7 @@ public class VollunteerInitialContoller {
                     }});;
             }
             else
-            callPane.helpButton.setOnAction(new EventHandler<ActionEvent>() {
+                callPane.helpButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
 

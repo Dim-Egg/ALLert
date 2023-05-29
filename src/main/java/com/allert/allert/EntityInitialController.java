@@ -7,12 +7,17 @@ import com.allert.allert.classes.State;
 import com.allert.allert.graphs.contentPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -33,6 +38,7 @@ public class EntityInitialController {
     public TextArea detDescription;
 
     public static Entity currentUser;
+    public Button logOutButton;
 
     public void initialize(){
         this.detEmail.setText(currentUser.getEmail());
@@ -40,6 +46,24 @@ public class EntityInitialController {
         this.detPlace.setText(currentUser.getPlace());
         this.detDescription.setText(currentUser.getDescription());
         this.detTelephone.setText(currentUser.getTelephone());
+
+        logOutButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("dummyLogIn.fxml"));
+                Scene scene = null;
+                try {
+                    scene = new Scene(fxmlLoader.load(), 600, 400);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                Stage mainWindow = MainApplication.mainWindow;
+                mainWindow.setTitle("Login");
+                mainWindow.setResizable(false);
+                mainWindow.setScene(scene);
+                mainWindow.centerOnScreen();
+            }
+        });
 
         Call.callsList.stream().filter(call -> call.getEntity().equals(currentUser)).toList().forEach(call -> {
 

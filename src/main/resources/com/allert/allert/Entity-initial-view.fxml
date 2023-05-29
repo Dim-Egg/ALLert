@@ -29,20 +29,20 @@
       </Label>
       <CheckBox fx:id="completButton" layoutX="1011.0" layoutY="118.0" mnemonicParsing="false" text="Include Completed" />
       <Button fx:id="newButton" layoutX="749.0" layoutY="115.0" mnemonicParsing="false" text="+" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="61.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" >
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="61.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
         <Image url="https://cdn-icons-png.flaticon.com/512/5163/5163328.png" />
     </ImageView>
-      <Label fx:id="detName" layoutX="329.0" layoutY="184.0" >
+      <Label fx:id="detName" layoutX="329.0" layoutY="184.0">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="detPlace"  layoutX="329.0" layoutY="204.0" >
+      <Label fx:id="detPlace" layoutX="329.0" layoutY="204.0">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="detEmail"  layoutX="329.0" layoutY="224.0" >
+      <Label fx:id="detEmail" layoutX="329.0" layoutY="224.0">
          <font>
             <Font size="16.0" />
          </font>
@@ -53,11 +53,12 @@
          </font>
       </Label>
       <TextArea fx:id="detDescription" layoutX="61.0" layoutY="366.0" prefHeight="204.0" prefWidth="415.0" />
-      <Label  layoutX="61.0" layoutY="340.0" text="Description">
+      <Label layoutX="61.0" layoutY="340.0" text="Description">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
       <Button layoutX="61.0" layoutY="587.0" mnemonicParsing="false" text="Edit Details" />
+      <Button fx:id="logOutButton" layoutX="1107.0" layoutY="14.0" mnemonicParsing="false" text="Log Out" />
     </children>
 </AnchorPane>

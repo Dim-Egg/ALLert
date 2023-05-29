@@ -29,10 +29,11 @@ public class MainApplication extends Application {
     public static void logIn(int id) throws IOException {
         User user = User.getUserById(id);
         if(user instanceof Volunteer){
+            VollunteerInitialContoller.currentUser = user;
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("Volunteer-initial-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
             mainWindow.setTitle(user.getName());
-            VollunteerInitialContoller.currentUser = user;
+
             mainWindow.setScene(scene);
             mainWindow.centerOnScreen();
         }
