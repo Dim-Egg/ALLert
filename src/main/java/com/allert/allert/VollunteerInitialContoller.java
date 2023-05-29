@@ -5,6 +5,8 @@ import com.allert.allert.graphs.HelpPane;
 import com.allert.allert.graphs.callPane;
 import com.allert.allert.graphs.contentPane;
 import com.allert.allert.graphs.eidosPane;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,14 +15,13 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -55,8 +56,65 @@ public class VollunteerInitialContoller {
 
     public static Stage secondaryWindow;
     public String filterWord = "";
+    public Button pendButton;
+    public Button apprButton;
+    public Button conButton;
+    public CheckBox responses;
+
     @FXML
     protected void initialize() {
+
+        responses.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldvalue, Boolean newvalue) {
+                if(newvalue){
+                    criMenu.setVisible(false);
+                    orgMenu.setVisible(false);
+                    callMenu.setVisible(false);
+                    pendButton.setVisible(true);
+                    apprButton.setVisible(true);
+                    conButton.setVisible(true);
+
+                    searchField.setDisable(true);
+                    searchButton.setDisable(true);
+
+                    addAllResponds(State.PENDING);
+
+                }else{
+                    criMenu.setVisible(true);
+                    orgMenu.setVisible(true);
+                    callMenu.setVisible(true);
+                    pendButton.setVisible(false);
+                    apprButton.setVisible(false);
+                    conButton.setVisible(false);
+
+                    searchField.setDisable(false);
+                    searchButton.setDisable(false);
+
+                    addAllCalls();
+                }
+            }
+        });
+
+        pendButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                addAllResponds(State.PENDING);
+            }
+        });
+        apprButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                addAllResponds(State.APPROVED);
+            }
+        });;
+        conButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                addAllResponds(State.CONFIRMED);
+            }
+        });;
+
         searchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent actionEvent) {
@@ -128,6 +186,42 @@ public class VollunteerInitialContoller {
 
     }
 
+    private void addAllResponds(State state) {
+
+        if(state.equals(State.PENDING)){
+            pendButton.setDefaultButton(true);
+            apprButton.setDefaultButton(false);
+            conButton.setDefaultButton(false);
+        }
+        else if(state.equals(State.APPROVED)){
+            pendButton.setDefaultButton(false);
+            apprButton.setDefaultButton(true);
+            conButton.setDefaultButton(false);
+        }
+        else if(state.equals(State.CONFIRMED)){
+            pendButton.setDefaultButton(false);
+            apprButton.setDefaultButton(false);
+            conButton.setDefaultButton(true);
+        }
+
+        leftTab.getChildren().clear();
+
+        Respond.respondList.stream().filter(respond -> respond.getVolunteer().equals(currentUser)).filter(respond -> respond.getState().equals(state))
+                .toList().forEach(respond -> {
+            Call call = respond.getCall();
+
+            contentPane newItem = new contentPane(call.getDescription(),
+                    call.getCrisis().getName()+" "+call.getDate(),call.getTitle(),"Call",Integer.toString(call.getId()));
+            newItem.contentButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    setRightTab("Call",Integer.toString(call.getId()));
+                }
+            });
+            leftTab.getChildren().add(newItem);
+        });
+
+    }
 
 
     public ArrayList<String> append(String word, ArrayList<Integer> list){
