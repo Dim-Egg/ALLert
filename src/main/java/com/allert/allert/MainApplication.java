@@ -36,6 +36,15 @@ public class MainApplication extends Application {
             mainWindow.setScene(scene);
             mainWindow.centerOnScreen();
         }
+        else if(user instanceof Entity){
+            EntityInitialController.currentUser = (Entity) user;
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("Entity-initial-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+            mainWindow.setTitle(user.getName());
+            mainWindow.setScene(scene);
+            mainWindow.centerOnScreen();
+
+        }
     }
     public static void main(String[] args) {
         dummyData();launch();
@@ -88,7 +97,7 @@ public class MainApplication extends Application {
                         new Economic_Item("Oikonomiki enishisi episitismou","dorees.org/stavros/evia/episitismos"),
                         new Economic_Item("Oikonomiki enishisi estiasis","dorees.org/stavros/evia/estiasi")}
                         ),
-                "13/07/2023");
+                "28/05/2023");
 
         new Call("Voithia stin fotia Evias apo Piroscestiki",
                 "Os Pirosvestiki parexoume voithia apo tin arxi stin fotia stin evia, xreiazomaste ethelontes kai dorees gia na sinexisoyms",

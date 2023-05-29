@@ -7,12 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class contentPane extends Pane{
+
     public contentPane (String contentDescription, String contentDetails, String contentTitle, String contentType, String contentId){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/allert/allert/contentPane.fxml"));
         loader.setRoot(this);
@@ -46,4 +48,5 @@ public class contentPane extends Pane{
 
     @FXML
     public Label status;
+    public ImageView notification;
 }
