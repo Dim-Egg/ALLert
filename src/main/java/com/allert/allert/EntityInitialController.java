@@ -40,6 +40,8 @@ public class EntityInitialController {
     public static Entity currentUser;
     public Button logOutButton;
 
+    public static Stage secondaryWindow;
+
     public void initialize(){
         this.detEmail.setText(currentUser.getEmail());
         this.detName.setText(currentUser.getName());
@@ -95,6 +97,25 @@ public class EntityInitialController {
                 }
             });
             leftTab.getChildren().add(newItem);
+        });
+
+        aitimaButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("aitimaKrisis-view.fxml"));
+                Scene scene;
+                try {
+                    scene = new Scene(fxmlLoader.load());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                secondaryWindow = new Stage();
+                secondaryWindow.setTitle("Aitima Krisis");
+
+                secondaryWindow.setScene(scene);
+                secondaryWindow.show();
+                MainApplication.mainWindow.hide();
+            }
         });
 
     }

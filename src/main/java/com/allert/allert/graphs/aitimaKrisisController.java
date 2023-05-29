@@ -1,8 +1,10 @@
 package com.allert.allert.graphs;
 
+import com.allert.allert.EntityInitialController;
 import com.allert.allert.MainApplication;
 import com.allert.allert.VollunteerInitialContoller;
 import com.allert.allert.classes.Crisis;
+import com.allert.allert.classes.Crisis_Request;
 import com.allert.allert.classes.Need_Request;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,25 +13,24 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 import java.util.stream.Collectors;
 
-public class aitimaController {
+public class aitimaKrisisController {
     public Button okButton;
     public Button cancelButton;
-    public ChoiceBox criChoises;
     public TextArea aitimaText;
-
-    @FXML
+    public TextField placeField;
+@FXML
     protected void initialize() {
         okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 boolean in = false;
-                if(criChoises.getSelectionModel().isEmpty()){
-                    Alert alert = new Alert(Alert.AlertType.ERROR,"You must choose a Crisis");
+                if(placeField.getText().equals("")){
+                    Alert alert = new Alert(Alert.AlertType.ERROR,"You must type a place");
                     alert.show();
                     in = true;
                 }
@@ -39,10 +40,10 @@ public class aitimaController {
                     in = true;
                 }
                 if(in)return;
-                new Need_Request(VollunteerInitialContoller.currentUser,aitimaText.getText(),Crisis.findByName(criChoises.getSelectionModel().getSelectedItem().toString()));
+                new Crisis_Request(EntityInitialController.currentUser,aitimaText.getText(), placeField.getText());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION,"Saved!");
 
-                VollunteerInitialContoller.secondaryWindow.close();
+                EntityInitialController.secondaryWindow.close();
                 MainApplication.mainWindow.show();
                 alert.show();
             }
@@ -50,14 +51,10 @@ public class aitimaController {
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                VollunteerInitialContoller.secondaryWindow.close();
+                EntityInitialController.secondaryWindow.close();
                 MainApplication.mainWindow.show();
             }
         });
-        ObservableList<String> items = FXCollections.observableArrayList();
-        items.addAll(
-        Crisis.crisisList.stream().map(Crisis::getName).collect(Collectors.toList()));
-        criChoises.setItems(items);
-    }
 
+    }
 }
