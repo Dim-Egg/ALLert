@@ -3,22 +3,16 @@ package com.allert.allert.graphs;
 import com.allert.allert.MainApplication;
 import com.allert.allert.VollunteerInitialContoller;
 import com.allert.allert.classes.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class HelpPane extends AnchorPane {
 
@@ -28,7 +22,7 @@ public class HelpPane extends AnchorPane {
     public Button cancelButton;
 
 
-    public HelpPane(Volunteer volunteer, Call call){
+    public HelpPane(Volunteer volunteer, Call call, VollunteerInitialContoller vollunteerInitialContoller){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/allert/allert/helpPane.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -76,7 +70,7 @@ public class HelpPane extends AnchorPane {
                                     alert.show();
                                     return;
                                 }
-                                offeredMatHelp.add(new Material_Item(matNode.name.getText(),accAmount,0));
+                                offeredMatHelp.add(new Material_Item(matNode.name.getText(),0,accAmount));
                             }
                         });
 
@@ -107,7 +101,7 @@ public class HelpPane extends AnchorPane {
                         MainApplication.mainWindow.show();
                         Alert alert = new Alert(Alert.AlertType.INFORMATION,"Saved!");
                         alert.show();
-
+                        vollunteerInitialContoller.empty();
                     }
                 });
 

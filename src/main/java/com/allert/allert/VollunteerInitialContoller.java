@@ -61,9 +61,10 @@ public class VollunteerInitialContoller {
     public Button conButton;
     public CheckBox responses;
 
+    public VollunteerInitialContoller vollunteerInitialContoller;
     @FXML
     protected void initialize() {
-
+        vollunteerInitialContoller = this;
         responses.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldvalue, Boolean newvalue) {
@@ -243,7 +244,7 @@ public class VollunteerInitialContoller {
         if(type.equals("Call") ) {
             Call displayCall = Call.findById(Integer.parseInt(id));
             rightTitle.setText(displayCall.getTitle());
-            callPane callPane = new callPane(displayCall);
+            callPane callPane = new callPane(displayCall,(Volunteer)currentUser);
             rightTitle.setContent(callPane);
 
             callPane.criLink.setOnAction(e->{
@@ -263,16 +264,22 @@ public class VollunteerInitialContoller {
             });
 
             if(Respond.hasResponded((Volunteer) currentUser,Call.findById(callPane.callId))){
-                callPane.helpButton.setDisable(true);
-                callPane.helpButton.setText("Already Responded");
+                 callPane.helpButton.setText("Cancel Help");
+                callPane.helpButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you Sure you want to cancel your help?");
+                        if(alert.showAndWait().get() == ButtonType.OK){
+                            Respond.respondList.remove(Respond.getRespond((Volunteer) currentUser,displayCall));
+                            vollunteerInitialContoller.empty();}
+                    }});;
             }
             else
             callPane.helpButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    if(Respond.hasResponded((Volunteer) currentUser,Call.findById(callPane.callId))){
-                        callPane.helpButton.setDisable(true);return;}
-                    HelpPane helpPane = new HelpPane((Volunteer) currentUser,Call.findById(callPane.callId));
+
+                    HelpPane helpPane = new HelpPane((Volunteer) currentUser,Call.findById(callPane.callId),vollunteerInitialContoller);
                     Scene scene;
                     Group root = new Group(helpPane);
                     scene = new Scene(root, 600, 400);
@@ -282,7 +289,7 @@ public class VollunteerInitialContoller {
                     secondaryWindow.setScene(scene);
                     secondaryWindow.show();
                     MainApplication.mainWindow.hide();
-                    initialize();
+
                 }
             });
         }
@@ -323,6 +330,12 @@ public class VollunteerInitialContoller {
             });
         }
     }
+
+    public void empty(){
+        addAllCalls();
+        rightTitle.setContent(null);
+        rightTitle.setText("");
+    }
     public void addAllCalls(){
 
         callMenu.setDefaultButton(true);
@@ -341,6 +354,8 @@ public class VollunteerInitialContoller {
                 }
             });
             leftTab.getChildren().add(newItem);
+            if(Respond.hasResponded((Volunteer) currentUser,call))
+                newItem.status.setText(Respond.getRespond((Volunteer) currentUser,call).getState().toString());
         });
 
         if(!filterWord.equals("")){

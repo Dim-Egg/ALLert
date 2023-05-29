@@ -21,6 +21,10 @@ public class Respond{
         return !respondList.stream().filter(respond -> respond.getVolunteer().equals(volunteer)&&respond.getCall().equals(call)).toList().isEmpty();
     }
 
+    public static Respond getRespond(Volunteer volunteer, Call call) {
+        return respondList.stream().filter(respond -> respond.getVolunteer().equals(volunteer)&&respond.getCall().equals(call)).toList().get(0);
+    }
+
     public Volunteer getVolunteer() {
         return volunteer;
     }
