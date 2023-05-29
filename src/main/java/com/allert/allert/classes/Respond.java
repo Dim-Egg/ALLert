@@ -17,6 +17,10 @@ public class Respond{
         respondList.add(this);
     }
 
+    public static boolean hasResponded(Volunteer volunteer, Call call) {
+        return !respondList.stream().filter(respond -> respond.getVolunteer().equals(volunteer)&&respond.getCall().equals(call)).toList().isEmpty();
+    }
+
     public Volunteer getVolunteer() {
         return volunteer;
     }
@@ -50,8 +54,3 @@ public class Respond{
     }
 }
 
-enum State {
-    PENDING,
-    CONFIRMED,
-    COMPLETED
-}

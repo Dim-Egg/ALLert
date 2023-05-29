@@ -167,9 +167,17 @@ public class VollunteerInitialContoller {
                 setRightTab("Entity", callPane.forLink.getText());
 
             });
+
+            if(Respond.hasResponded((Volunteer) currentUser,Call.findById(callPane.callId))){
+                callPane.helpButton.setDisable(true);
+                callPane.helpButton.setText("Already Responded");
+            }
+            else
             callPane.helpButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
+                    if(Respond.hasResponded((Volunteer) currentUser,Call.findById(callPane.callId))){
+                        callPane.helpButton.setDisable(true);return;}
                     HelpPane helpPane = new HelpPane((Volunteer) currentUser,Call.findById(callPane.callId));
                     Scene scene;
                     Group root = new Group(helpPane);
@@ -180,7 +188,7 @@ public class VollunteerInitialContoller {
                     secondaryWindow.setScene(scene);
                     secondaryWindow.show();
                     MainApplication.mainWindow.hide();
-
+                    initialize();
                 }
             });
         }

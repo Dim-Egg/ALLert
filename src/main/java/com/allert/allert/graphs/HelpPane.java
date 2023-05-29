@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class HelpPane extends AnchorPane {
@@ -33,16 +34,24 @@ public class HelpPane extends AnchorPane {
         loader.setController(this);
         try {
             loader.load();
-
+            ArrayList<eidosPane> matNodes = new ArrayList<>();
+            ArrayList<eidosPane> volNodes = new ArrayList<>();
             for(Material_Item matItem:((Material_Help)call.getHelp_List()[0]).getItem_list()){
-                eidosPane newItem = new eidosPane(Integer.toString(matItem.getNeeded_Quantity()),Integer.toString(matItem.getAccumulated_Quantity()),matItem.getName());
-                matHelp.getChildren().add(newItem);
-                newItem.accAmount.setEditable(true);
+                if(matItem.getNeeded_Quantity()-matItem.getAccumulated_Quantity()>0) {
+                    eidosPane newItem = new eidosPane(Integer.toString(matItem.getNeeded_Quantity() - matItem.getAccumulated_Quantity()), "0", matItem.getName());
+                    matHelp.getChildren().add(newItem);
+                    newItem.accAmount.setEditable(true);
+                    matNodes.add(newItem);
+                }
             }
             for(Volunteer_Item volItem:((Volunteer_Help)call.getHelp_List()[1]).getItem_list()){
-                eidosPane newItem = new eidosPane(Integer.toString(volItem.getNeeded_Force()),Integer.toString(volItem.getAccumulated_Force()),volItem.getName());
-                volHelp.getChildren().add(newItem);
-                newItem.needAmount.setEditable(true);
+                if(volItem.getNeeded_Force()-volItem.getAccumulated_Force()>0) {
+                    eidosPane newItem = new eidosPane(volItem.getName());
+                    volHelp.getChildren().add(newItem);
+                    newItem.needAmount.setEditable(true);
+                    volNodes.add(newItem);
+                }
+
             }
 
                     cancelButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -57,39 +66,48 @@ public class HelpPane extends AnchorPane {
                     @Override
                     public void handle(ActionEvent actionEvent) {
 
-                        matHelp.getChildren().forEach( node->{
-                            if(node instanceof Pane){
-                                TextField accNode = (TextField) ((Pane) node).getChildren().stream().filter(amount->"accAmount".equals(amount.getId())).toList().get(0);
-                                int regamount = Integer.parseInt(accNode.getText());
-
-                                if(!(regamount == 0)){
-
-                                TextField nedNode = (TextField) ((Pane) node).getChildren().stream().filter(amount->"nedAmount".equals(amount.getId())).toList().get(0);
-                                int nedAmount = Integer.parseInt(nedNode.getText());
-                                if(regamount>nedAmount){
-                                    Alert alert = new Alert(Alert.AlertType.ERROR,"You chose more than you should!");
-                                    alert.show();}
+                        ArrayList<Material_Item> offeredMatHelp = new ArrayList<>();
+                        matNodes.forEach(matNode->{
+                            int accAmount = Integer.parseInt(matNode.accAmount.getText());
+                            int nedAmount = Integer.parseInt(matNode.needAmount.getText());
+                            if(accAmount!=0){
+                                if(accAmount>nedAmount||accAmount<0){
+                                    Alert alert = new Alert(Alert.AlertType.ERROR,"Wrong values in "+matNode.name.getText());
+                                    alert.show();
+                                    return;
                                 }
+                                offeredMatHelp.add(new Material_Item(matNode.name.getText(),accAmount,0));
                             }
                         });
 
-//                        boolean in = false;
-//                        if(criChoises.getSelectionModel().isEmpty()){
-//                            Alert alert = new Alert(Alert.AlertType.ERROR,"You must choose a Crisis");
-//                            alert.show();
-//                            in = true;
-//                        }
-//                        if(aitimaText.getText().equals("")){
-//                            Alert alert = new Alert(Alert.AlertType.ERROR,"Your Description Can't be null");
-//                            alert.show();
-//                            in = true;
-//                        }
-//                        if(in)return;
-//                        new Need_Request(VollunteerInitialContoller.currentUser,aitimaText.getText(), Crisis.findByName(criChoises.getSelectionModel().getSelectedItem().toString()));
-//                        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Saved!");
-//                        alert.show();
-//                        VollunteerInitialContoller.secondaryWindow.close();
-//                        MainApplication.mainWindow.show();
+                        ArrayList<Volunteer_Item> offereVoldHelp = new ArrayList<>();
+                        volNodes.forEach(volNode->{
+
+                            if(volNode.yesButton.isDefaultButton()){
+
+                                offereVoldHelp.add(new Volunteer_Item(volNode.name.getText(),0,0));
+                            }
+                        });
+
+                        if(offereVoldHelp.isEmpty()&&offeredMatHelp.isEmpty()){
+                            Alert alert = new Alert(Alert.AlertType.ERROR,"You didn't helped :(, please reenter values");
+                            alert.show();
+                            return;
+                        } else if(offereVoldHelp.isEmpty()){
+                            new Respond(volunteer,call,State.PENDING,new Material_Help((String) null, offeredMatHelp.toArray(new Material_Item[offeredMatHelp.size()]),null),null,null);
+                        }
+                        else if(offeredMatHelp.isEmpty()){
+                            new Respond(volunteer,call,State.PENDING,null,new Volunteer_Help((String) null, offereVoldHelp.toArray(new Volunteer_Item[offereVoldHelp.size()]),null),null);
+                        }else{
+                            new Respond(volunteer,call,State.PENDING,new Material_Help((String) null, offeredMatHelp.toArray(new Material_Item[offeredMatHelp.size()]),null),
+                                    new Volunteer_Help((String) null, offereVoldHelp.toArray(new Volunteer_Item[offereVoldHelp.size()]),null),null);
+                        }
+
+                        VollunteerInitialContoller.secondaryWindow.close();
+                        MainApplication.mainWindow.show();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Saved!");
+                        alert.show();
+
                     }
                 });
 
@@ -98,40 +116,4 @@ public class HelpPane extends AnchorPane {
         }
     }
 
-//    @FXML
-//    protected void initialize() {
-//        okButton.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                boolean in = false;
-//                if(criChoises.getSelectionModel().isEmpty()){
-//                    Alert alert = new Alert(Alert.AlertType.ERROR,"You must choose a Crisis");
-//                    alert.show();
-//                    in = true;
-//                }
-//                if(aitimaText.getText().equals("")){
-//                    Alert alert = new Alert(Alert.AlertType.ERROR,"Your Description Can't be null");
-//                    alert.show();
-//                    in = true;
-//                }
-//                if(in)return;
-//                new Need_Request(VollunteerInitialContoller.currentUser,aitimaText.getText(), Crisis.findByName(criChoises.getSelectionModel().getSelectedItem().toString()));
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION,"Saved!");
-//                alert.show();
-//                VollunteerInitialContoller.secondaryWindow.close();
-//                MainApplication.mainWindow.show();
-//            }
-//        });
-//        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                VollunteerInitialContoller.secondaryWindow.close();
-//                MainApplication.mainWindow.show();
-//            }
-//        });
-//        ObservableList<String> items = FXCollections.observableArrayList();
-//        items.addAll(
-//                Crisis.crisisList.stream().map(Crisis::getName).collect(Collectors.toList()));
-//        criChoises.setItems(items);
-//    }
 }
