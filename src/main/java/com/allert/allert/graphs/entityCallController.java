@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public class entityCallController extends AnchorPane {
@@ -372,15 +373,29 @@ public class entityCallController extends AnchorPane {
             }
         });
 
+        if(!Respond.respondList.stream().filter(respond -> respond.getCall().equals(call)&&!respond.getHelp_list()[1].isEmpty()).toList().isEmpty()){
         respondVolButton.setVisible(true);
-        respondVolButton.setOnAction(new EventHandler<ActionEvent>() {
-           @Override
-           public void handle(ActionEvent actionEvent) {
-                VolSelection selection = new VolSelection(call);
+            respondVolButton.setOnAction(new EventHandler<ActionEvent>() {
+               @Override
+               public void handle(ActionEvent actionEvent) {
+                    VolSelection selection = new VolSelection(call,false);
 
-                selection.show();
-           }
-       });
+                    selection.show();
+               }
+           });
+        }
+
+        if(!Respond.respondList.stream().filter(respond -> respond.getCall().equals(call)&&!respond.getHelp_list()[0].isEmpty()).toList().isEmpty()){
+            respondMatButton.setVisible(true);
+            respondMatButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    VolSelection selection = new VolSelection(call,true);
+
+                    selection.show();
+                }
+            });
+        }
 
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -456,6 +471,40 @@ public class entityCallController extends AnchorPane {
                     }
 
                 if(call!=null){
+
+
+                    Volunteer_Help finalVolunteer_help = volunteer_help;
+                    AtomicBoolean returnNow = new AtomicBoolean(false);
+                    AtomicBoolean in = new AtomicBoolean(false);
+                    Respond.respondList.stream().filter(respond -> respond.getCall().equals(call)&&!respond.getHelp_list()[1].isEmpty()).toList().forEach(respond -> {
+
+                                for (Item item : respond.getHelp_list()[1].getItem_list()) {
+                                    if(((Volunteer_Item)item).getNeeded_Force() == 1){{
+                                        for (Volunteer_Item volunteerItem : finalVolunteer_help.getItem_list()) {
+                                            if(item.getName().equals(volunteerItem.getName())){
+                                                Alert alert = new Alert(Alert.AlertType.ERROR,"There are still responds that you need to manage");
+                                                alert.show();
+                                                returnNow.set(true);
+                                            }
+                                        }
+
+                                    }} else if (((Volunteer_Item)item).getNeeded_Force() == 0) {
+                                        respond.setState(State.APPROVED);
+                                        in.set(true);
+                                    }
+                                }
+                                if(!in.get()){
+                                    respond.setState(State.PENDING);
+                                }
+
+                            });
+
+                    if(returnNow.get())
+                        return;
+
+
+
+
                     call.update(titleField.getText(),
                             innerCallDescription.getText(),
                             EntityInitialController.currentUser,

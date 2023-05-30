@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -13,6 +14,7 @@ public class VolunteerSelectionPane extends Pane {
     public Button acceptButton;
     public Button declineButton;
     public CheckBox confirmCheck;
+    public TextArea amountRisen;
 
     public VolunteerSelectionPane(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/allert/allert/volunteerSelectionPane.fxml"));

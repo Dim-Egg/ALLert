@@ -79,7 +79,7 @@ public class HelpPane extends AnchorPane {
 
                             if(volNode.yesButton.isDefaultButton()){
 
-                                offereVoldHelp.add(new Volunteer_Item(volNode.name.getText(),0,0));
+                                offereVoldHelp.add(new Volunteer_Item(volNode.name.getText(),1,0));
                             }
                         });
 

@@ -1,5 +1,6 @@
 package com.allert.allert.graphs;
 
+import com.allert.allert.classes.Material_Item;
 import com.allert.allert.classes.Respond;
 import com.allert.allert.classes.Volunteer_Item;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,8 @@ public class VolItem extends TitledPane {
 
     public int acc;
     public Volunteer_Item item;
+
+    public Material_Item matItem;
 
     public VolItem(Volunteer_Item item){
         this.item = item;
@@ -37,11 +40,41 @@ public class VolItem extends TitledPane {
 
     }
 
+    public VolItem(Material_Item item) {
+        this.matItem = item;
+        acc=item.getAccumulated_Quantity();
+        volunteerSelectionPaneList = new ArrayList<>();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/allert/allert/volItem.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+
+        try {
+            loader.load();
+
+
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        this.setText(item.getName()+" "+acc+"/"+item.getNeeded_Quantity());
+    }
+
     public void increase(){
         this.setText(item.getName()+" "+(++acc)+"/"+item.getNeeded_Force());
 
     }
+
+    public void increase(int amount){
+        acc+=amount;
+        this.setText(item.getName()+" "+(acc)+"/"+item.getNeeded_Force());
+
+    }
     public void decrease(){
+        this.setText(item.getName()+" "+(--acc)+"/"+item.getNeeded_Force());
+
+    }
+
+    public void decrease(int amount){
+        acc-=amount;
         this.setText(item.getName()+" "+(--acc)+"/"+item.getNeeded_Force());
 
     }
