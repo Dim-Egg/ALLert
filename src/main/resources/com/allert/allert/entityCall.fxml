@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="696.0" prefWidth="600.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.allert.allert.graphs.entityCallController">
+    <children>
+        <TextArea fx:id="innerCallDescription" layoutX="20.0" layoutY="53.0" prefHeight="187.0" prefWidth="337.0" />
+        <TextField editable="false" layoutX="14.0" layoutY="257.0" prefHeight="33.0" prefWidth="144.0" style="-fx-background-color: transparent;" text="Yliki Voitheia">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <ScrollPane hbarPolicy="NEVER" layoutX="20.0" layoutY="289.0" prefHeight="206.0" prefWidth="279.0">
+
+
+            <VBox fx:id="matHelp" prefWidth="225.0">
+               </VBox>
+
+
+        </ScrollPane>
+        <ScrollPane hbarPolicy="NEVER" layoutX="317.0" layoutY="289.0" prefHeight="206.0" prefWidth="279.0">
+
+
+            <VBox fx:id="volHelp" prefWidth="225.0" />
+
+
+        </ScrollPane>
+        <TextField editable="false" layoutX="300.0" layoutY="258.0" prefHeight="33.0" prefWidth="121.0" style="-fx-background-color: transparent;" text="Ethelontes">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <TextField editable="false" layoutX="14.0" layoutY="520.0" prefHeight="33.0" prefWidth="202.0" style="-fx-background-color: transparent;" text="Oikonomiki Voitheia">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <ScrollPane hbarPolicy="NEVER" layoutX="20.0" layoutY="549.0" prefHeight="87.0" prefWidth="292.0">
+            <content>
+                <VBox fx:id="ecHelp" prefWidth="241.0" />
+            </content>
+        </ScrollPane>
+      <Button fx:id="saveButton" layoutX="238.0" layoutY="660.0" mnemonicParsing="false" text="Save" />
+      <Button fx:id="cancelButton" layoutX="309.0" layoutY="660.0" mnemonicParsing="false" text="Cancel" />
+      <TextField editable="false" layoutX="4.0" layoutY="20.0" prefHeight="33.0" prefWidth="144.0" style="-fx-background-color: transparent;" text="Description">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <TextField editable="false" layoutX="359.0" layoutY="53.0" prefHeight="33.0" prefWidth="62.0" style="-fx-background-color: transparent;" text="Title">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="titleField" layoutX="412.0" layoutY="58.0" />
+      <TextField editable="false" layoutX="359.0" layoutY="103.0" prefHeight="33.0" prefWidth="75.0" style="-fx-background-color: transparent;" text="Crisis">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <ChoiceBox fx:id="criChoise" layoutX="423.0" layoutY="108.0" prefWidth="150.0" />
+      <Button fx:id="plusMatButton" layoutX="144.0" layoutY="262.0" mnemonicParsing="false" text="+" />
+      <Button fx:id="plusVolButton" layoutX="409.0" layoutY="263.0" mnemonicParsing="false" text="+" />
+      <Button fx:id="plusEcButton" layoutX="216.0" layoutY="525.0" mnemonicParsing="false" text="+" />
+      <Button fx:id="editMatButton" layoutX="173.0" layoutY="262.0" mnemonicParsing="false" text="Edit" />
+      <Button fx:id="editVolButton" layoutX="438.0" layoutY="263.0" mnemonicParsing="false" text="Edit" />
+      <Button fx:id="editEcButton" layoutX="245.0" layoutY="525.0" mnemonicParsing="false" text="Edit" />
+      <Button fx:id="respondMatButton" layoutX="217.0" layoutY="262.0" mnemonicParsing="false" text="Responds" visible="false" />
+      <Button fx:id="respondVolButton" layoutX="482.0" layoutY="263.0" mnemonicParsing="false" text="Responds" visible="false" />
+
+    </children>
+
+</AnchorPane>

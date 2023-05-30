@@ -48,7 +48,24 @@ public class EntityInitialController {
         this.detPlace.setText(currentUser.getPlace());
         this.detDescription.setText(currentUser.getDescription());
         this.detTelephone.setText(currentUser.getTelephone());
+        newButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("entityCall.fxml"));
+                Scene scene;
+                try {
+                    scene = new Scene(fxmlLoader.load());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                secondaryWindow = new Stage();
+                secondaryWindow.setTitle("New Call!");
 
+                secondaryWindow.setScene(scene);
+                secondaryWindow.show();
+                MainApplication.mainWindow.hide();
+            }
+        });
         logOutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
