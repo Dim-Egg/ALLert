@@ -2,25 +2,20 @@ package com.allert.allert.graphs;
 
 import com.allert.allert.EntityInitialController;
 import com.allert.allert.MainApplication;
-import com.allert.allert.VollunteerInitialContoller;
 import com.allert.allert.classes.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -55,9 +50,10 @@ public class entityCallController extends AnchorPane {
 
     public String volIstructions= "";
 
-    public static EntityInitialController entityInitialController = null;
+    public EntityInitialController entityInitialController = null;
 
-    public entityCallController(){
+    public entityCallController(Call call, EntityInitialController entityInitialController){
+        this.entityInitialController = entityInitialController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/allert/allert/entityCall.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -86,6 +82,84 @@ public class entityCallController extends AnchorPane {
         items.addAll(
                 Crisis.crisisList.stream().map(Crisis::getName).collect(Collectors.toList()));
         criChoise.setItems(items);
+
+        if(call!=null) {
+            titleField.setText(call.getTitle());
+            innerCallDescription.setText(call.getDescription());
+            criChoise.getSelectionModel().select(call.getCrisis().getName());
+
+
+            if(!((Material_Help)call.getHelp_List()[0]).isEmpty())
+                matIstructions = ((Material_Help)call.getHelp_List()[0]).getInstructions();
+                for (Material_Item materialItem : (Material_Item[]) call.getHelp_List()[0].getItem_list()) {
+                eidosPane eidosItem = new eidosPane(Integer.toString(materialItem.getNeeded_Quantity()), Integer.toString(materialItem.getNeeded_Quantity()), materialItem.getName());
+                eidosItem.needAmount.setEditable(true);
+                HBox item = new HBox();
+                Button minus = new Button("-");
+                eidosItem.setPrefWidth(250);
+                minus.setPrefHeight(45);
+                minus.setPrefHeight(45);
+                item.getChildren().addAll(eidosItem, minus);
+
+                minus.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        matHelp.getChildren().remove(item);
+                    }
+                });
+
+                matHelp.getChildren().add(item);
+            }
+            if(!((Volunteer_Help)call.getHelp_List()[1]).isEmpty())
+                volIstructions = ((Volunteer_Help)call.getHelp_List()[1]).getInstructions();
+                for (Volunteer_Item volunteerItem : (Volunteer_Item[]) call.getHelp_List()[1].getItem_list()) {
+                    eidosPane eidosItem = new eidosPane(Integer.toString(volunteerItem.getNeeded_Force()), Integer.toString(volunteerItem.getAccumulated_Force()), volunteerItem.getName());
+                    eidosItem.needAmount.setEditable(true);
+                    HBox item = new HBox();
+                    Button minus = new Button("-");
+                    eidosItem.setPrefWidth(250);
+                    minus.setPrefHeight(45);
+                    minus.setPrefHeight(45);
+                    item.getChildren().addAll(eidosItem, minus);
+
+                    minus.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            volHelp.getChildren().remove(item);
+                        }
+                    });
+
+                    volHelp.getChildren().add(item);
+                }
+            if(!((Economic_Help)call.getHelp_List()[2]).isEmpty())
+                for (Economic_Item economicItem : (Economic_Item[]) call.getHelp_List()[2].getItem_list()) {
+
+                    Hyperlink eidosItem = new Hyperlink(economicItem.getName());
+                    eidosItem.setId(economicItem.getLink());
+                    eidosItem.setOnAction(e->{
+                        try {
+                            Desktop.getDesktop().browse(new URI(economicItem.getLink()));
+                        } catch (IOException | URISyntaxException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    });
+
+                    HBox item = new HBox();
+                    Button minus = new Button("-");
+                    eidosItem.setPrefWidth(250);
+                    minus.setPrefHeight(45);
+                    minus.setPrefHeight(10);
+                    item.getChildren().addAll(eidosItem,minus);
+
+                    minus. setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            ecHelp.getChildren().remove(item);
+                        }});
+
+                    ecHelp.getChildren().add(item);
+                }
+        }
 
         plusMatButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -119,7 +193,7 @@ public class entityCallController extends AnchorPane {
                             return;
                         }
                         eidosPane eidosItem = new eidosPane(newItem.needAmount.getText(), "0", newItem.Name.getText());
-
+                        eidosItem.needAmount.setEditable(true);
                         HBox item = new HBox();
                         Button minus = new Button("-");
                         eidosItem.setPrefWidth(250);
@@ -172,7 +246,7 @@ public class entityCallController extends AnchorPane {
                             return;
                         }
                         eidosPane eidosItem = new eidosPane(newItem.needAmount.getText(), "0", newItem.Name.getText());
-
+                        eidosItem.needAmount.setEditable(true);
                         HBox item = new HBox();
                         Button minus = new Button("-");
                         eidosItem.setPrefWidth(250);
@@ -322,11 +396,12 @@ public class entityCallController extends AnchorPane {
                     Alert alert = new Alert(Alert.AlertType.ERROR,"You didn't register any help");
                     alert.show();return;}
 
-                Material_Help material_help = new Material_Help("", new Material_Item[]{},"");
+                Material_Help material_help = new Material_Help();
                 if(!matHelp.getChildren().stream().filter(node -> node instanceof HBox).toList().isEmpty()){
                     if(matIstructions.equals("")){
                     Alert alert = new Alert(Alert.AlertType.ERROR,"Your Instruction for the material help Can't be null press edit to add it");
                     alert.show();return;}else{
+                        material_help = new Material_Help(null,null,null);
                         material_help.setInstructions(matIstructions);
                         List<Material_Item> itemList= new ArrayList<>();
                         matHelp.getChildren().stream().map(node -> ((HBox)node).getChildren().get(0)).forEach(node -> {
@@ -338,11 +413,12 @@ public class entityCallController extends AnchorPane {
                         });
                         material_help.setItem_list(itemList.toArray(new Material_Item[0]));
                     }}
-                Volunteer_Help volunteer_help = new Volunteer_Help("", new Volunteer_Item[]{},"");
+                Volunteer_Help volunteer_help = new Volunteer_Help();
                 if(!volHelp.getChildren().stream().filter(node -> node instanceof HBox).toList().isEmpty()){
                     if(volIstructions.equals("")){
                         Alert alert = new Alert(Alert.AlertType.ERROR,"Your Instruction for the material help Can't be null press edit to add it");
                         alert.show();return;}else{
+                        volunteer_help =new Volunteer_Help(null,null,null);
                         volunteer_help.setInstructions(volIstructions);
                         List<Volunteer_Item> itemList= new ArrayList<>();
                         volHelp.getChildren().stream().map(node -> ((HBox)node).getChildren().get(0)).forEach(node -> {
@@ -355,9 +431,9 @@ public class entityCallController extends AnchorPane {
                         volunteer_help.setItem_list(itemList.toArray(new Volunteer_Item[0]));
                     }}
 
-                Economic_Help economic_help = new Economic_Help("", null);
+                Economic_Help economic_help = new Economic_Help();
                 if(!ecHelp.getChildren().stream().filter(node -> node instanceof HBox).toList().isEmpty()){
-
+                        economic_help = new Economic_Help(null,null);
                         List<Economic_Item> itemList= new ArrayList<>();
                         ecHelp.getChildren().stream().map(node -> ((HBox)node).getChildren().get(0)).forEach(node -> {
                             if(node instanceof Hyperlink){
@@ -369,13 +445,19 @@ public class entityCallController extends AnchorPane {
                     economic_help.setItem_list(itemList.toArray(new Economic_Item[0]));
                     }
 
-
-                new Call(titleField.getText(),
-                        innerCallDescription.getText(),
-                        EntityInitialController.currentUser,
-                        Crisis.findByName(criChoise.getSelectionModel().getSelectedItem().toString()),
-                      material_help,volunteer_help,economic_help,  (new SimpleDateFormat("dd/MM/yyyy")).format (new Date())
-                );
+                if(call!=null){
+                    call.update(titleField.getText(),
+                            innerCallDescription.getText(),
+                            EntityInitialController.currentUser,
+                            Crisis.findByName(criChoise.getSelectionModel().getSelectedItem().toString()),
+                            material_help,volunteer_help,economic_help,  (new SimpleDateFormat("dd/MM/yyyy")).format (new Date()));
+                }else
+                    new Call(titleField.getText(),
+                            innerCallDescription.getText(),
+                            EntityInitialController.currentUser,
+                            Crisis.findByName(criChoise.getSelectionModel().getSelectedItem().toString()),
+                          material_help,volunteer_help,economic_help,  (new SimpleDateFormat("dd/MM/yyyy")).format (new Date())
+                    );
 
                 entityInitialController.addCalls();
 

@@ -7,6 +7,11 @@ public class Volunteer_Help extends Help{
         super(description, item_list);
         this.instructions = instructions;
     }
+
+    public Volunteer_Help() {
+        super();
+    }
+
     @Override
     public Volunteer_Item[] getItem_list() {
         return (Volunteer_Item[]) super.getItem_list();

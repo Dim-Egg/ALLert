@@ -56,8 +56,8 @@ public class EntityInitialController {
         newButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                entityCallController entityCallController = new entityCallController();
-                entityCallController.entityInitialController = entityInitialController;
+                entityCallController entityCallController = new entityCallController(null,entityInitialController);
+
 
             }
         });
@@ -135,7 +135,7 @@ public class EntityInitialController {
             newItem.contentButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-
+                    entityCallController entityCallController = new entityCallController(call,entityInitialController);
                 }
             });
             leftTab.getChildren().add(newItem);

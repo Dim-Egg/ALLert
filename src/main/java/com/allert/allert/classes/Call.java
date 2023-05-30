@@ -58,6 +58,14 @@ public class Call {
         this.id = itId++;
     }
 
+    public void update(String title, String description, Entity entity, Crisis crisis, Material_Help material_Help, Volunteer_Help volunteer_Help, Economic_Help economic_Help, String date) {
+        this.title = title;
+        this.description = description;
+        this.entity = entity;
+        this.crisis = crisis;
+        this.help_List = new Help[]{material_Help, volunteer_Help, economic_Help};
+        this.date = date;
+    }
     public Entity getEntity() {
         return entity;
     }
