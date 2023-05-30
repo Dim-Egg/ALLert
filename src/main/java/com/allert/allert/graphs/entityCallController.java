@@ -89,7 +89,7 @@ public class entityCallController extends AnchorPane {
             criChoise.getSelectionModel().select(call.getCrisis().getName());
 
 
-            if(!((Material_Help)call.getHelp_List()[0]).isEmpty())
+            if(!call.getHelp_List()[0].isEmpty()){
                 matIstructions = ((Material_Help)call.getHelp_List()[0]).getInstructions();
                 for (Material_Item materialItem : (Material_Item[]) call.getHelp_List()[0].getItem_list()) {
                 eidosPane eidosItem = new eidosPane(Integer.toString(materialItem.getNeeded_Quantity()), Integer.toString(materialItem.getNeeded_Quantity()), materialItem.getName());
@@ -109,8 +109,8 @@ public class entityCallController extends AnchorPane {
                 });
 
                 matHelp.getChildren().add(item);
-            }
-            if(!((Volunteer_Help)call.getHelp_List()[1]).isEmpty())
+            }}
+            if(!((Volunteer_Help)call.getHelp_List()[1]).isEmpty()){
                 volIstructions = ((Volunteer_Help)call.getHelp_List()[1]).getInstructions();
                 for (Volunteer_Item volunteerItem : (Volunteer_Item[]) call.getHelp_List()[1].getItem_list()) {
                     eidosPane eidosItem = new eidosPane(Integer.toString(volunteerItem.getNeeded_Force()), Integer.toString(volunteerItem.getAccumulated_Force()), volunteerItem.getName());
@@ -130,8 +130,8 @@ public class entityCallController extends AnchorPane {
                     });
 
                     volHelp.getChildren().add(item);
-                }
-            if(!((Economic_Help)call.getHelp_List()[2]).isEmpty())
+                }}
+            if(!((Economic_Help)call.getHelp_List()[2]).isEmpty()){
                 for (Economic_Item economicItem : (Economic_Item[]) call.getHelp_List()[2].getItem_list()) {
 
                     Hyperlink eidosItem = new Hyperlink(economicItem.getName());
@@ -158,7 +158,7 @@ public class entityCallController extends AnchorPane {
                         }});
 
                     ecHelp.getChildren().add(item);
-                }
+                }}
         }
 
         plusMatButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -371,6 +371,16 @@ public class entityCallController extends AnchorPane {
 
             }
         });
+
+        respondVolButton.setVisible(true);
+        respondVolButton.setOnAction(new EventHandler<ActionEvent>() {
+           @Override
+           public void handle(ActionEvent actionEvent) {
+                VolSelection selection = new VolSelection(call);
+
+                selection.show();
+           }
+       });
 
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

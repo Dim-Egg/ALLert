@@ -88,13 +88,13 @@ public class HelpPane extends AnchorPane {
                             alert.show();
                             return;
                         } else if(offereVoldHelp.isEmpty()){
-                            new Respond(volunteer,call,State.PENDING,new Material_Help((String) null, offeredMatHelp.toArray(new Material_Item[offeredMatHelp.size()]),null),null,null);
+                            new Respond(volunteer,call,State.PENDING,new Material_Help((String) null, offeredMatHelp.toArray(new Material_Item[0]),null),new Volunteer_Help(),null);
                         }
                         else if(offeredMatHelp.isEmpty()){
-                            new Respond(volunteer,call,State.PENDING,null,new Volunteer_Help((String) null, offereVoldHelp.toArray(new Volunteer_Item[offereVoldHelp.size()]),null),null);
+                            new Respond(volunteer,call,State.PENDING,new Material_Help(),new Volunteer_Help((String) null, offereVoldHelp.toArray(new Volunteer_Item[0]),null),null);
                         }else{
-                            new Respond(volunteer,call,State.PENDING,new Material_Help((String) null, offeredMatHelp.toArray(new Material_Item[offeredMatHelp.size()]),null),
-                                    new Volunteer_Help((String) null, offereVoldHelp.toArray(new Volunteer_Item[offereVoldHelp.size()]),null),null);
+                            new Respond(volunteer,call,State.PENDING,new Material_Help((String) null, offeredMatHelp.toArray(new Material_Item[0]),null),
+                                    new Volunteer_Help((String) null, offereVoldHelp.toArray(new Volunteer_Item[0]),null),null);
                         }
 
                         VollunteerInitialContoller.secondaryWindow.close();
