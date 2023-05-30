@@ -29,6 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import javax.sound.sampled.AudioInputStream;
 import java.awt.*;
@@ -198,6 +199,12 @@ public class VollunteerInitialContoller {
 
                 secondaryWindow.setScene(scene);
                 secondaryWindow.show();
+                secondaryWindow.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent windowEvent) {
+                        MainApplication.mainWindow.show();
+                    }
+                });
                 MainApplication.mainWindow.hide();
             }
         });

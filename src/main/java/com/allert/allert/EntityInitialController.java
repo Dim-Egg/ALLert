@@ -5,6 +5,7 @@ import com.allert.allert.classes.Entity;
 import com.allert.allert.classes.Respond;
 import com.allert.allert.classes.State;
 import com.allert.allert.graphs.contentPane;
+import com.allert.allert.graphs.entityCallController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -42,7 +44,10 @@ public class EntityInitialController {
 
     public static Stage secondaryWindow;
 
+    public EntityInitialController entityInitialController;
+
     public void initialize(){
+        entityInitialController = this;
         this.detEmail.setText(currentUser.getEmail());
         this.detName.setText(currentUser.getName());
         this.detPlace.setText(currentUser.getPlace());
@@ -51,19 +56,9 @@ public class EntityInitialController {
         newButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("entityCall.fxml"));
-                Scene scene;
-                try {
-                    scene = new Scene(fxmlLoader.load());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                secondaryWindow = new Stage();
-                secondaryWindow.setTitle("New Call!");
+                entityCallController entityCallController = new entityCallController();
+                entityCallController.entityInitialController = entityInitialController;
 
-                secondaryWindow.setScene(scene);
-                secondaryWindow.show();
-                MainApplication.mainWindow.hide();
             }
         });
         logOutButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -84,6 +79,36 @@ public class EntityInitialController {
             }
         });
 
+        addCalls();
+
+        aitimaButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("aitimaKrisis-view.fxml"));
+                Scene scene;
+                try {
+                    scene = new Scene(fxmlLoader.load());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                secondaryWindow = new Stage();
+                secondaryWindow.setTitle("Aitima Krisis");
+
+                secondaryWindow.setScene(scene);
+                secondaryWindow.show();
+                secondaryWindow.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent windowEvent) {
+                        MainApplication.mainWindow.show();
+                    }
+                });
+                MainApplication.mainWindow.hide();
+            }
+        });
+
+    }
+    public void addCalls(){
+        leftTab.getChildren().clear();
         Call.callsList.stream().filter(call -> call.getEntity().equals(currentUser)).toList().forEach(call -> {
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -115,25 +140,5 @@ public class EntityInitialController {
             });
             leftTab.getChildren().add(newItem);
         });
-
-        aitimaButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("aitimaKrisis-view.fxml"));
-                Scene scene;
-                try {
-                    scene = new Scene(fxmlLoader.load());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                secondaryWindow = new Stage();
-                secondaryWindow.setTitle("Aitima Krisis");
-
-                secondaryWindow.setScene(scene);
-                secondaryWindow.show();
-                MainApplication.mainWindow.hide();
-            }
-        });
-
     }
 }

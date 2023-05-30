@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="696.0" prefWidth="600.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.allert.allert.graphs.entityCallController">
+<fx:root type="javafx.scene.layout.AnchorPane" prefHeight="734.0" prefWidth="600.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <TextArea fx:id="innerCallDescription" layoutX="20.0" layoutY="53.0" prefHeight="187.0" prefWidth="337.0" />
         <TextField editable="false" layoutX="14.0" layoutY="257.0" prefHeight="33.0" prefWidth="144.0" style="-fx-background-color: transparent;" text="Yliki Voitheia">
@@ -42,13 +42,13 @@
                 <Font size="18.0" />
             </font>
         </TextField>
-        <ScrollPane hbarPolicy="NEVER" layoutX="20.0" layoutY="549.0" prefHeight="87.0" prefWidth="292.0">
+        <ScrollPane hbarPolicy="NEVER" layoutX="20.0" layoutY="549.0" prefHeight="138.0" prefWidth="292.0">
             <content>
                 <VBox fx:id="ecHelp" prefWidth="241.0" />
             </content>
         </ScrollPane>
-      <Button fx:id="saveButton" layoutX="238.0" layoutY="660.0" mnemonicParsing="false" text="Save" />
-      <Button fx:id="cancelButton" layoutX="309.0" layoutY="660.0" mnemonicParsing="false" text="Cancel" />
+      <Button fx:id="saveButton" layoutX="233.0" layoutY="696.0" mnemonicParsing="false" text="Save" />
+      <Button fx:id="cancelButton" layoutX="304.0" layoutY="696.0" mnemonicParsing="false" text="Cancel" />
       <TextField editable="false" layoutX="4.0" layoutY="20.0" prefHeight="33.0" prefWidth="144.0" style="-fx-background-color: transparent;" text="Description">
          <font>
             <Font size="18.0" />
@@ -71,10 +71,9 @@
       <Button fx:id="plusEcButton" layoutX="216.0" layoutY="525.0" mnemonicParsing="false" text="+" />
       <Button fx:id="editMatButton" layoutX="173.0" layoutY="262.0" mnemonicParsing="false" text="Edit" />
       <Button fx:id="editVolButton" layoutX="438.0" layoutY="263.0" mnemonicParsing="false" text="Edit" />
-      <Button fx:id="editEcButton" layoutX="245.0" layoutY="525.0" mnemonicParsing="false" text="Edit" />
       <Button fx:id="respondMatButton" layoutX="217.0" layoutY="262.0" mnemonicParsing="false" text="Responds" visible="false" />
       <Button fx:id="respondVolButton" layoutX="482.0" layoutY="263.0" mnemonicParsing="false" text="Responds" visible="false" />
 
     </children>
 
-</AnchorPane>
+</fx:root>
