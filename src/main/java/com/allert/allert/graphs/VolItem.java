@@ -65,7 +65,7 @@ public class VolItem extends TitledPane {
 
     public void increase(int amount){
         acc+=amount;
-        this.setText(item.getName()+" "+(acc)+"/"+item.getNeeded_Force());
+        this.setText(matItem.getName()+" "+(acc)+"/"+matItem.getNeeded_Quantity());
 
     }
     public void decrease(){
@@ -75,7 +75,7 @@ public class VolItem extends TitledPane {
 
     public void decrease(int amount){
         acc-=amount;
-        this.setText(item.getName()+" "+(--acc)+"/"+item.getNeeded_Force());
+        this.setText(matItem.getName()+" "+(acc)+"/"+matItem.getNeeded_Quantity());
 
     }
 

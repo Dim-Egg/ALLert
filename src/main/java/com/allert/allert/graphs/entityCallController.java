@@ -476,6 +476,8 @@ public class entityCallController extends AnchorPane {
                     Volunteer_Help finalVolunteer_help = volunteer_help;
                     AtomicBoolean returnNow = new AtomicBoolean(false);
                     AtomicBoolean in = new AtomicBoolean(false);
+                    AtomicBoolean finalIn1 = in;
+                    AtomicBoolean finalReturnNow1 = returnNow;
                     Respond.respondList.stream().filter(respond -> respond.getCall().equals(call)&&!respond.getHelp_list()[1].isEmpty()).toList().forEach(respond -> {
 
                                 for (Item item : respond.getHelp_list()[1].getItem_list()) {
@@ -484,22 +486,53 @@ public class entityCallController extends AnchorPane {
                                             if(item.getName().equals(volunteerItem.getName())){
                                                 Alert alert = new Alert(Alert.AlertType.ERROR,"There are still responds that you need to manage");
                                                 alert.show();
-                                                returnNow.set(true);
+                                                finalReturnNow1.set(true);
                                             }
                                         }
 
                                     }} else if (((Volunteer_Item)item).getNeeded_Force() == 0) {
                                         respond.setState(State.APPROVED);
-                                        in.set(true);
+                                        finalIn1.set(true);
                                     }
                                 }
-                                if(!in.get()){
+                                if(!finalIn1.get()){
                                     respond.setState(State.PENDING);
                                 }
 
                             });
 
-                    if(returnNow.get())
+                    if(finalReturnNow1.get())
+                        return;
+
+                    Material_Help finalMaterialHelp = material_help;
+                    returnNow = new AtomicBoolean(false);
+                    in = new AtomicBoolean(false);
+                    AtomicBoolean finalReturnNow = returnNow;
+                    AtomicBoolean finalIn = in;
+                    Respond.respondList.stream().filter(respond -> respond.getCall().equals(call)&&!respond.getHelp_list()[0].isEmpty()).toList().forEach(respond -> {
+
+                        for (Item item : respond.getHelp_list()[0].getItem_list()) {
+                            if(((Material_Item)item).getNeeded_Quantity() == 0){{
+                                for (Material_Item materialItem : finalMaterialHelp.getItem_list()) {
+                                    if(item.getName().equals(materialItem.getName())){
+                                        Alert alert = new Alert(Alert.AlertType.ERROR,"There are still responds that you need to manage");
+                                        alert.show();
+                                        finalReturnNow.set(true);
+                                    }
+                                }
+
+                            }} else if (((Material_Item)item).getNeeded_Quantity() > 0) {
+                                respond.setState(State.APPROVED);
+                                finalIn.set(true);
+                            }
+                        }
+                        if(!finalIn.get()){
+                            respond.setState(State.PENDING);
+                        }
+
+                    });
+
+                    if(finalReturnNow.get())
                         return;
 
 

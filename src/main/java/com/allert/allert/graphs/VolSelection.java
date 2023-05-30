@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -137,15 +138,15 @@ public class VolSelection extends AnchorPane {
                             if (volunteerSelectionPane.acceptButton.isDefaultButton()) {
                                 Respond respond = Respond.getRespond((Volunteer) Volunteer.getUserById(Integer.parseInt(volunteerSelectionPane.name.getId())), call);
                                 for (Item item : respond.getHelp_list()[0].getItem_list()) {
-                                    if (item.getName().equals(volItem.item.getName()))
-                                        ((Material_Item) item).setNeeded_Quantity(Integer.parseInt(volunteerSelectionPane.amountRisen.getText()));
+                                    if (item.getName().equals(volItem.matItem.getName()))
+                                        ((Material_Item) item).setNeeded_Quantity(Integer.parseInt(volunteerSelectionPane.ammount.getText()));
                                 }
 
 
                             } else {
                                 Respond respond = Respond.getRespond((Volunteer) Volunteer.getUserById(Integer.parseInt(volunteerSelectionPane.name.getId())), call);
                                 for (Item item : respond.getHelp_list()[0].getItem_list()) {
-                                    if (item.getName().equals(volItem.item.getName()))
+                                    if (item.getName().equals(volItem.matItem.getName()))
                                         ((Material_Item) item).setNeeded_Quantity(-1);
                                 }
                             }
@@ -175,24 +176,39 @@ public class VolSelection extends AnchorPane {
                     VolunteerSelectionPane pane = new VolunteerSelectionPane();
                     pane.name.setText(respond.getVolunteer().getName());
                     pane.name.setId(Integer.toString(respond.getVolunteer().getId()));
-                    pane.amountRisen.setVisible(true);
-                    pane.amountRisen.setPromptText(Integer.toString(matItem.getAccumulated_Quantity()));
+                    pane.ammount.setVisible(true);
+                    pane.ammount.setPromptText(Integer.toString(matItem.getAccumulated_Quantity()));
+
                     titleItem.add(pane);
 
                     if (matItem.getNeeded_Quantity() >0) {
+                        pane.ammount.setText(Integer.toString(matItem.getNeeded_Quantity()));
                         pane.acceptButton.setDefaultButton(true);
-                        titleItem.increase(matItem.getAccumulated_Quantity());
+                        titleItem.increase(Integer.parseInt(pane.ammount.getText()));
                     }
 
                     if (matItem.getNeeded_Quantity() == -1)
                         pane.declineButton.setDefaultButton(true);
+
+                    final int[] temp = {0};
                     pane.acceptButton.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
                             if (!pane.acceptButton.isDefaultButton()) {
+                                if(pane.ammount.getText().equals("")){
+                                    Alert alert = new Alert(Alert.AlertType.ERROR,"Select an amount");
+                                    alert.show();
+                                    return;
+                                }
+                                if(Integer.parseInt(pane.ammount.getText())>Integer.parseInt(pane.ammount.getPromptText())){
+                                    Alert alert = new Alert(Alert.AlertType.ERROR,"you selected too much!");
+                                    alert.show();
+                                    return;
+                                }
                                 pane.acceptButton.setDefaultButton(true);
                                 pane.declineButton.setDefaultButton(false);
-                                titleItem.increase(matItem.getAccumulated_Quantity());
+                                titleItem.increase(Integer.parseInt(pane.ammount.getText()));
+                                temp[0] = Integer.parseInt(pane.ammount.getText());
                             }
                         }
                     });
@@ -202,7 +218,7 @@ public class VolSelection extends AnchorPane {
                             if (pane.acceptButton.isDefaultButton()) {
                                 pane.acceptButton.setDefaultButton(false);
                                 pane.declineButton.setDefaultButton(true);
-                                titleItem.decrease(matItem.getAccumulated_Quantity());
+                                titleItem.decrease(temp[0]);
                             } else if (!pane.acceptButton.isDefaultButton() && !pane.declineButton.isDefaultButton()) {
                                 pane.declineButton.setDefaultButton(true);
                             }
