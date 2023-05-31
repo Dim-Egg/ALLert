@@ -1,9 +1,7 @@
 package com.allert.allert;
 
-import com.allert.allert.classes.Call;
-import com.allert.allert.classes.Entity;
-import com.allert.allert.classes.Respond;
-import com.allert.allert.classes.State;
+import com.allert.allert.classes.*;
+import com.allert.allert.graphs.NotificationPane;
 import com.allert.allert.graphs.contentPane;
 import com.allert.allert.graphs.entityCallController;
 import javafx.event.ActionEvent;
@@ -14,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -22,7 +19,6 @@ import javafx.stage.WindowEvent;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -45,6 +41,7 @@ public class EntityInitialController {
     public static Stage secondaryWindow;
 
     public EntityInitialController entityInitialController;
+    public Button notButton;
 
     public void initialize(){
         entityInitialController = this;
@@ -53,10 +50,19 @@ public class EntityInitialController {
         this.detPlace.setText(currentUser.getPlace());
         this.detDescription.setText(currentUser.getDescription());
         this.detTelephone.setText(currentUser.getTelephone());
+
+        notButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+            new NotificationPane(currentUser,entityInitialController);
+
+
+            }
+        });
         newButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                entityCallController entityCallController = new entityCallController(null,entityInitialController);
+                entityCallController entityCallController = new entityCallController(null,entityInitialController, null);
 
 
             }
@@ -135,7 +141,7 @@ public class EntityInitialController {
             newItem.contentButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    entityCallController entityCallController = new entityCallController(call,entityInitialController);
+                    entityCallController entityCallController = new entityCallController(call,entityInitialController, null);
                 }
             });
             leftTab.getChildren().add(newItem);

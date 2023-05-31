@@ -2,8 +2,7 @@ package com.allert.allert.graphs;
 
 import com.allert.allert.MainApplication;
 import com.allert.allert.VollunteerInitialContoller;
-import com.allert.allert.classes.Crisis;
-import com.allert.allert.classes.Need_Request;
+import com.allert.allert.classes.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,12 +38,16 @@ public class aitimaController {
                     in = true;
                 }
                 if(in)return;
-                new Need_Request(VollunteerInitialContoller.currentUser,aitimaText.getText(),Crisis.findByName(criChoises.getSelectionModel().getSelectedItem().toString()));
+                Need_Request request = new Need_Request(VollunteerInitialContoller.currentUser,aitimaText.getText(),Crisis.findByName(criChoises.getSelectionModel().getSelectedItem().toString()));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION,"Saved!");
 
                 VollunteerInitialContoller.secondaryWindow.close();
                 MainApplication.mainWindow.show();
                 alert.show();
+                Call.callsList.stream().filter(call -> call.getCrisis().equals(request.getCrisis())).map(Call::getEntity).distinct().toList().forEach(entity -> {
+                    new Notification(entity,request);
+                });
+
             }
         });
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {

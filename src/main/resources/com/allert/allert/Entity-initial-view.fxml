@@ -60,5 +60,6 @@
       </Label>
       <Button layoutX="61.0" layoutY="587.0" mnemonicParsing="false" text="Edit Details" />
       <Button fx:id="logOutButton" layoutX="1107.0" layoutY="14.0" mnemonicParsing="false" text="Log Out" />
+      <Button fx:id="notButton" layoutX="995.0" layoutY="14.0" mnemonicParsing="false" text="Notifications" />
     </children>
 </AnchorPane>

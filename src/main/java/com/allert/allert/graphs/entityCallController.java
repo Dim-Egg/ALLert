@@ -53,7 +53,7 @@ public class entityCallController extends AnchorPane {
 
     public EntityInitialController entityInitialController = null;
 
-    public entityCallController(Call call, EntityInitialController entityInitialController){
+    public entityCallController(Call call, EntityInitialController entityInitialController, Volunteer user){
         this.entityInitialController = entityInitialController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/allert/allert/entityCall.fxml"));
         loader.setRoot(this);
@@ -543,13 +543,16 @@ public class entityCallController extends AnchorPane {
                             EntityInitialController.currentUser,
                             Crisis.findByName(criChoise.getSelectionModel().getSelectedItem().toString()),
                             material_help,volunteer_help,economic_help,  (new SimpleDateFormat("dd/MM/yyyy")).format (new Date()));
-                }else
-                    new Call(titleField.getText(),
+                }else {
+                    Call call = new Call(titleField.getText(),
                             innerCallDescription.getText(),
                             EntityInitialController.currentUser,
                             Crisis.findByName(criChoise.getSelectionModel().getSelectedItem().toString()),
-                          material_help,volunteer_help,economic_help,  (new SimpleDateFormat("dd/MM/yyyy")).format (new Date())
+                            material_help, volunteer_help, economic_help, (new SimpleDateFormat("dd/MM/yyyy")).format(new Date())
                     );
+                    if(user != null)
+                        new Notification(user,call);
+                }
 
                 entityInitialController.addCalls();
 
