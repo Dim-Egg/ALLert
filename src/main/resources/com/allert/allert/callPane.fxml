@@ -55,6 +55,8 @@
         <TextField fx:id="innerCallDate" editable="false" layoutX="444.0" layoutY="102.0" style="-fx-background-color: transparent;" />
       <Button id="callContent" fx:id="helpButton" layoutX="439.0" layoutY="527.0" mnemonicParsing="false" text="Help" />
       <Label fx:id="status" layoutX="494.0" layoutY="173.0" />
+      <Button fx:id="matInstr" visible="false" layoutX="178.0" layoutY="215.0" mnemonicParsing="false" text="Instructions" />
+      <Button fx:id="volInstr" visible="false" layoutX="462.0" layoutY="215.0" mnemonicParsing="false" text="Instructions" />
     </children>
 
 </fx:root>

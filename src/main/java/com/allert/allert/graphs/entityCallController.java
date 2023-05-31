@@ -93,7 +93,7 @@ public class entityCallController extends AnchorPane {
             if(!call.getHelp_List()[0].isEmpty()){
                 matIstructions = ((Material_Help)call.getHelp_List()[0]).getInstructions();
                 for (Material_Item materialItem : (Material_Item[]) call.getHelp_List()[0].getItem_list()) {
-                eidosPane eidosItem = new eidosPane(Integer.toString(materialItem.getNeeded_Quantity()), Integer.toString(materialItem.getNeeded_Quantity()), materialItem.getName());
+                eidosPane eidosItem = new eidosPane(Integer.toString(materialItem.getNeeded_Quantity()), Integer.toString(materialItem.getAccumulated_Quantity()), materialItem.getName());
                 eidosItem.needAmount.setEditable(true);
                 HBox item = new HBox();
                 Button minus = new Button("-");

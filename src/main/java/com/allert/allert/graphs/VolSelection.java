@@ -1,5 +1,6 @@
 package com.allert.allert.graphs;
 
+import com.allert.allert.VollunteerInitialContoller;
 import com.allert.allert.classes.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class VolSelection extends AnchorPane {
@@ -92,6 +94,15 @@ public class VolSelection extends AnchorPane {
                     VolunteerSelectionPane pane = new VolunteerSelectionPane();
                     pane.name.setText(respond.getVolunteer().getName());
                     pane.name.setId(Integer.toString(respond.getVolunteer().getId()));
+                    pane.name.setOnAction(new EventHandler<ActionEvent>() {
+                                          @Override
+                                          public void handle(ActionEvent actionEvent) {
+                                              Alert alert = new Alert(Alert.AlertType.INFORMATION,"Place:" + respond.getVolunteer().getPlace()
+                                              +" Skills: "+ Arrays.toString(respond.getVolunteer().getSkills()) + " Telephone: "+ respond.getVolunteer().getTelephone()
+                                              );
+                                              alert.show();
+                                          }
+                                      });
                     titleItem.add(pane);
 
                     if (((Volunteer_Item) item).getNeeded_Force() == 0) {
@@ -177,6 +188,15 @@ public class VolSelection extends AnchorPane {
                     pane.name.setText(respond.getVolunteer().getName());
                     pane.name.setId(Integer.toString(respond.getVolunteer().getId()));
                     pane.ammount.setVisible(true);
+                    pane.name.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION,"Place:" + respond.getVolunteer().getPlace()
+                                    +" Skills: "+ Arrays.toString(respond.getVolunteer().getSkills()) + " Telephone: "+ respond.getVolunteer().getTelephone()
+                            );
+                            alert.show();
+                        }
+                    });
                     pane.ammount.setPromptText(Integer.toString(matItem.getAccumulated_Quantity()));
 
                     titleItem.add(pane);

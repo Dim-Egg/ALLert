@@ -19,10 +19,10 @@
                 <Font size="15.0" />
             </font>
         </Label>
-        <TextField fx:id="accAmount" editable="false" layoutX="93.0" layoutY="8.0" prefHeight="24.0" prefWidth="52.0" />
-        <TextField fx:id="needAmount" editable="false" layoutX="155.0" layoutY="10.0" prefHeight="24.0" prefWidth="50.0" />
-      <Button fx:id="yesButton" visible="false" layoutX="97.0" layoutY="8.0" mnemonicParsing="false" text="Yes" />
-      <Button fx:id="noButton" visible="false" defaultButton="true" layoutX="164.0" layoutY="10.0" mnemonicParsing="false" text="No" />
+        <TextField fx:id="accAmount" editable="false" layoutX="87.0" layoutY="8.0" prefHeight="24.0" prefWidth="58.0" />
+        <TextField fx:id="needAmount" editable="false" layoutX="155.0" layoutY="10.0" prefHeight="24.0" prefWidth="56.0" />
+      <Button fx:id="yesButton" layoutX="97.0" layoutY="8.0" mnemonicParsing="false" text="Yes" visible="false" />
+      <Button fx:id="noButton" defaultButton="true" layoutX="164.0" layoutY="10.0" mnemonicParsing="false" text="No" visible="false" />
     </children>
 
 </fx:root>

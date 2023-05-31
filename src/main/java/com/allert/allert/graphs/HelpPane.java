@@ -33,35 +33,35 @@ public class HelpPane extends AnchorPane {
             ArrayList<eidosPane> volNodes = new ArrayList<>();
             if(!call.getHelp_List()[0].isEmpty())
                 for(Material_Item matItem:((Material_Help)call.getHelp_List()[0]).getItem_list()){
-                    if(matItem.getNeeded_Quantity()-matItem.getAccumulated_Quantity()>0) {
-                        eidosPane newItem = new eidosPane(Integer.toString(matItem.getNeeded_Quantity() - matItem.getAccumulated_Quantity()), "0", matItem.getName());
+
+                        eidosPane newItem = new eidosPane(Integer.toString(matItem.getNeeded_Quantity()-matItem.getAccumulated_Quantity()),"0", matItem.getName());
                         matHelp.getChildren().add(newItem);
                         newItem.accAmount.setEditable(true);
                         matNodes.add(newItem);
-                    }
+
                 }
             else
                 matHelp.getChildren().add(new Label("Empty"));
             if(!call.getHelp_List()[1].isEmpty())
                 for(Volunteer_Item volItem:((Volunteer_Help)call.getHelp_List()[1]).getItem_list()){
-                    if(volItem.getNeeded_Force()-volItem.getAccumulated_Force()>0) {
+
                         eidosPane newItem = new eidosPane(volItem.getName());
                         volHelp.getChildren().add(newItem);
                         newItem.needAmount.setEditable(true);
                         volNodes.add(newItem);
-                    }
+
 
                 }
             else
                 volHelp.getChildren().add(new Label("Empty"));
 
-                    cancelButton.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent actionEvent) {
-                            VollunteerInitialContoller.secondaryWindow.close();
-                            MainApplication.mainWindow.show();
-                        }
-                    });
+                cancelButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        VollunteerInitialContoller.secondaryWindow.close();
+                        MainApplication.mainWindow.show();
+                    }
+                });
 
                     okButton.setOnAction(new EventHandler<ActionEvent>() {
                     @Override

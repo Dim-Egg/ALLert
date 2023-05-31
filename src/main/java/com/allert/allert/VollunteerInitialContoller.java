@@ -293,6 +293,7 @@ public class VollunteerInitialContoller {
             if(Respond.hasResponded((Volunteer) currentUser,Call.findById(callPane.callId))){
                  callPane.helpButton.setText("Cancel Help");
                 callPane.helpButton.setOnAction(new EventHandler<ActionEvent>() {
+
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you Sure you want to cancel your help?");
