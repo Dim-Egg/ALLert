@@ -13,7 +13,7 @@ module graphs {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
-    requires com.almasb.fxgl.all;
+    //requires com.almasb.fxgl.all;
 
     opens com.allert.allert to javafx.fxml;
     exports com.allert.allert;

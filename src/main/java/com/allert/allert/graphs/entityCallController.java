@@ -492,6 +492,7 @@ public class entityCallController extends AnchorPane {
 
                                     }} else if (((Volunteer_Item)item).getNeeded_Force() == 0) {
                                         respond.setState(State.APPROVED);
+                                        new Notification(respond.getVolunteer(), respond);
                                         finalIn1.set(true);
                                     }
                                 }
@@ -524,6 +525,7 @@ public class entityCallController extends AnchorPane {
                             }} else if (((Material_Item)item).getNeeded_Quantity() > 0) {
                                 respond.setState(State.APPROVED);
                                 finalIn.set(true);
+                                new Notification(respond.getVolunteer(), respond);
                             }
                         }
                         if(!finalIn.get()){

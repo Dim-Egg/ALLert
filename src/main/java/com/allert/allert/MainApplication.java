@@ -62,11 +62,34 @@ public class MainApplication extends Application {
                 "karalida@outlook.com",
                 "6900345345",
                 "Thiva",new Skill[]{Skill.COOKING},false);
+        new Volunteer("Mitsos Karanikas",
+                "emrwinr213491",
+                "karanika@outlook.com",
+                "69363636985",
+                "Siros",new Skill[]{Skill.DRIVING,Skill.COOKING},false);
+        new Volunteer("Lamprini thoma",
+                "emrwinr213491",
+                "tom@outlook.com",
+                "6356251452",
+                "Athens",new Skill[]{Skill.COOKING},true);
 
         new Crisis("Fotia Evias",
                 "Evia",
                 "Megali fotia stin perioxi tis evias 10000 dasikon stremmaton",
                 Crisis.Level.MEDIUM);
+
+        new Crisis("Kima Metanaston stin siro",
+                "Siros",
+                "Polloi Metanastes stin siro",
+                Crisis.Level.LOW);
+
+        new Entity("Paralegal NGO",
+                "emrwinr213491",
+                "helpdesk@parango.org",
+                "2635122225",
+                "Thessaloniki",
+                "Legal help in places of need",
+                "IMAGE");
 
         new Entity("Stavros",
                 "emrwinr213491",
@@ -97,8 +120,41 @@ public class MainApplication extends Application {
                 new Economic_Help("Anagki gia oikonomiki enishisi ton pligenton", new Economic_Item[]{
                         new Economic_Item("Oikonomiki enishisi episitismou","dorees.org/stavros/evia/episitismos"),
                         new Economic_Item("Oikonomiki enishisi estiasis","dorees.org/stavros/evia/estiasi")}
-                        ),
+                ),
                 "28/05/2023");
+        new Call("Nomiki Voithtia stous metanastes",
+                "Os Paralegals parexoume nomiki voithia se anthropous me anagki kai sto kima metanaston polloi synathropoi mas xreiazontai thn voitheia maw",
+                Entity.findByName("Paralegal NGO"),Crisis.findByName("Kima Metanaston stin siro"),
+                new Material_Help("Anagki gia stegasi tiw omadas", new Material_Item[]{
+                        new Material_Item("Spiti",1,0),
+                        new Material_Item("Ylika Grafeioy",25,0)},
+                        "Parte mas sto tilefono mas"),
+                new Volunteer_Help("Anagki gia nomikous kai psihologous", new Volunteer_Item[]{
+                        new Volunteer_Item("Nomikoi",15,0),
+                        new Volunteer_Item("Psihologoi",5,0)}
+                        ,"Sto Camp ton metanaston meta apo sinnneoisi tilefoniki"),
+                new Economic_Help("Anagki gia oikonomiki enishisi ton exodon mas", new Economic_Item[]{
+                        new Economic_Item("Oikonomiki enishisi metakinisis","dorees.org/paralegal/siros/metakinisi"),
+                        new Economic_Item("Oikonomiki enishisi diamonis","dorees.org/paralegal/siros/diamoni")}
+                ),
+                "07/06/2023");
+
+        new Call("Iatriki Voithtia stous metanastes",
+                "Os Stavros parexoume iatriki voithia se anthropous me anagki kai sto kima metanaston polloi synathropoi mas xreiazontai thn voitheia maw",
+                Entity.findByName("Stavros"),Crisis.findByName("Kima Metanaston stin siro"),
+                new Material_Help("Anagki gia Gazes kai depon", new Material_Item[]{
+                        new Material_Item("Gazes",50,0),
+                        new Material_Item("Depon",25,0)},
+                        "Filelinon 5, siros"),
+                new Volunteer_Help("Anagki gia koinonikous leitoyrgous", new Volunteer_Item[]{
+                        new Volunteer_Item("Koin. Leitourgoi",7,0),}
+                                                ,"Filelinon 5, siros"),
+                new Economic_Help("Anagki gia oikonomiki enishisi ton exodon mas", new Economic_Item[]{
+                        new Economic_Item("Oikonomiki enishisi asthenoforou","dorees.org/stavros/siros/asthenoforo"),
+                        }
+                ),
+                "03/06/2023");
+
 
         new Call("Voithia stin fotia Evias apo Piroscestiki",
                 "Os Pirosvestiki parexoume voithia apo tin arxi stin fotia stin evia, xreiazomaste ethelontes kai dorees gia na sinexisoyms",

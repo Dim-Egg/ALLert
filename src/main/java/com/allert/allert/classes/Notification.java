@@ -19,6 +19,8 @@ public class Notification {
     }
 
     public Notification(Volunteer user, Respond respond) {
+        if (!notificationList.stream().filter(notification -> notification.getRespond() != null).filter(notification -> notification.getRespond().equals(respond)).toList().isEmpty())
+            return;
         this.user = user;
         this.respond = respond;
         this.need_Request = null;
@@ -40,6 +42,8 @@ public class Notification {
         this.respond = null;
         notificationList.add(this);
     }
+
+
 
     public static List<Notification> getNotifications(User user){
         return notificationList.stream().filter(notification -> notification.user.equals(user)).toList();

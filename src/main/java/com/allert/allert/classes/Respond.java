@@ -14,6 +14,7 @@ public class Respond{
         this.call = call;
         this.state = state;
         this.help_List = new Help[]{material_Help, volunteer_Help, economic_Help};
+        new Notification(this.call.getEntity(), this.call);
         respondList.add(this);
     }
 

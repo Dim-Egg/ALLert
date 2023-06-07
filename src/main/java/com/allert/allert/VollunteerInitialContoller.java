@@ -1,10 +1,7 @@
 package com.allert.allert;
 
 import com.allert.allert.classes.*;
-import com.allert.allert.graphs.HelpPane;
-import com.allert.allert.graphs.callPane;
-import com.allert.allert.graphs.contentPane;
-import com.allert.allert.graphs.eidosPane;
+import com.allert.allert.graphs.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -64,10 +61,20 @@ public class VollunteerInitialContoller {
 
     public VollunteerInitialContoller vollunteerInitialContoller;
     public Button logOutButton;
+    public Button notButton;
 
     @FXML
     protected void initialize() {
         vollunteerInitialContoller = this;
+
+        notButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                new NotificationPane(currentUser,vollunteerInitialContoller);
+
+
+            }
+        });
 
         logOutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
